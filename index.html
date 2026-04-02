@@ -7,140 +7,61 @@
 <link href="https://fonts.googleapis.com/css2?family=Calibri:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
   :root {
-    --bg: #0a0a0a; --bg2: #111; --bg3: #1a1a1a; --bg4: #222;
-    --border: #2a2a2a; --border2: #333; --border3: #1a1a1a;
-    --text: #e8e8e8; --muted: #888;
-    --accent: #d4581a;
-    --pos: #22c55e; --neg: #ef4444; --blue: #a0c4ff;
-    --amber: #f59e0b; --purple: #a78bfa;
-    --font: 'Calibri', Arial, sans-serif;
+    --bg:#0a0a0a; --bg2:#111; --bg3:#1a1a1a;
+    --border:#2a2a2a; --border2:#333; --border3:#1a1a1a;
+    --text:#e8e8e8; --muted:#888;
+    --accent:#d4581a;
+    --pos:#22c55e; --neg:#ef4444; --blue:#a0c4ff; --amber:#f59e0b;
+    --font:'Calibri',Arial,sans-serif;
   }
   * { margin:0; padding:0; box-sizing:border-box; }
   body { background:var(--bg); color:var(--text); font-family:var(--font); font-size:13px; }
-
   header {
     background:var(--bg2); border-bottom:1px solid var(--border);
     padding:0 20px; height:50px; display:flex; align-items:center;
     justify-content:space-between; position:sticky; top:0; z-index:100;
   }
   .logo { display:flex; align-items:center; gap:10px; }
-  .logo-icon {
-    width:32px; height:32px; background:var(--accent); border-radius:6px;
-    display:flex; align-items:center; justify-content:center;
-    font-size:16px; overflow:hidden;
-  }
+  .logo-icon { width:32px; height:32px; background:var(--accent); border-radius:6px; display:flex; align-items:center; justify-content:center; overflow:hidden; }
   .logo-title { font-size:15px; font-weight:700; }
   .logo-title span { color:var(--accent); }
   .logo-sub { font-size:10px; color:var(--muted); }
-  .header-right { display:flex; align-items:center; gap:16px; }
+  .hright { display:flex; align-items:center; gap:16px; }
   .stat { text-align:right; }
   .stat-lbl { font-size:9px; color:var(--muted); text-transform:uppercase; letter-spacing:0.8px; }
   .stat-val { font-size:18px; font-weight:700; }
-  .live { display:flex; align-items:center; gap:5px; background:rgba(212,88,26,0.2);
-    color:var(--accent); font-size:9px; font-weight:700; padding:4px 9px;
-    border-radius:3px; letter-spacing:1px; border:1px solid rgba(212,88,26,0.4); }
+  .live { display:flex; align-items:center; gap:5px; background:rgba(212,88,26,0.2); color:var(--accent); font-size:9px; font-weight:700; padding:4px 9px; border-radius:3px; letter-spacing:1px; border:1px solid rgba(212,88,26,0.4); }
   .dot { width:5px; height:5px; border-radius:50%; background:var(--accent); animation:blink 2s infinite; }
   @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.2} }
-
   .container { max-width:1800px; margin:0 auto; padding:12px 20px; }
-
-  /* ── Controles ── */
-  .controls {
-    display:flex; align-items:center; gap:12px; flex-wrap:wrap;
-    background:var(--bg2); border:1px solid var(--border); border-radius:6px;
-    padding:10px 14px; margin-bottom:12px;
-  }
+  .controls { display:flex; align-items:center; gap:12px; flex-wrap:wrap; background:var(--bg2); border:1px solid var(--border); border-radius:6px; padding:10px 14px; margin-bottom:12px; }
   .ctrl-group { display:flex; align-items:center; gap:6px; }
-  .ctrl-lbl { font-size:10px; color:var(--muted); font-weight:700; text-transform:uppercase; letter-spacing:0.5px; }
-  select, input[type=number] {
-    background:var(--bg3); border:1px solid var(--border2); border-radius:4px;
-    color:var(--text); font-family:var(--font); font-size:12px; padding:4px 8px; outline:none;
-  }
+  .ctrl-lbl { font-size:10px; color:var(--muted); font-weight:700; text-transform:uppercase; letter-spacing:0.5px; white-space:nowrap; }
+  select, input[type=number] { background:var(--bg3); border:1px solid var(--border2); border-radius:4px; color:var(--text); font-family:var(--font); font-size:12px; padding:4px 8px; outline:none; }
   select:focus, input[type=number]:focus { border-color:var(--accent); }
-  .btn {
-    padding:5px 12px; border-radius:4px; border:none; cursor:pointer;
-    font-family:var(--font); font-size:11px; font-weight:700;
-  }
+  .btn { padding:5px 12px; border-radius:4px; border:none; cursor:pointer; font-family:var(--font); font-size:11px; font-weight:700; }
   .btn-primary { background:var(--accent); color:#fff; }
-  .btn-primary:hover { background:#c04010; }
-  .btn-secondary { background:var(--bg3); color:var(--muted); border:1px solid var(--border2); }
-  .btn-secondary:hover { color:var(--text); }
-
-  /* ── Resumen superior ── */
-  .summary-grid {
-    display:grid; grid-template-columns:repeat(6,1fr); gap:8px; margin-bottom:12px;
-  }
-  .sum-card {
-    background:var(--bg2); border:1px solid var(--border); border-radius:6px;
-    padding:10px 12px; text-align:center;
-  }
+  .summary { display:grid; grid-template-columns:repeat(5,1fr); gap:8px; margin-bottom:12px; }
+  .sum-card { background:var(--bg2); border:1px solid var(--border); border-radius:6px; padding:10px 12px; text-align:center; }
   .sum-lbl { font-size:9px; color:var(--muted); text-transform:uppercase; letter-spacing:0.5px; font-weight:700; }
-  .sum-val { font-size:18px; font-weight:700; margin-top:3px; }
-
-  /* ── Tabla principal ── */
-  .table-wrap { overflow-x:auto; }
+  .sum-val { font-size:20px; font-weight:700; margin-top:3px; }
+  .table-wrap { overflow-x:auto; margin-bottom:24px; }
   table { width:100%; border-collapse:collapse; }
-  th {
-    padding:5px 8px; text-align:right; font-size:10px; font-weight:700;
-    color:var(--muted); text-transform:uppercase; letter-spacing:0.4px;
-    background:var(--bg3); border-bottom:1px solid var(--border);
-    white-space:nowrap; position:sticky; top:50px;
-  }
-  th:first-child { text-align:left; }
-  td {
-    padding:4px 8px; text-align:right; border-bottom:1px solid var(--border3);
-    font-size:12px; white-space:nowrap; font-weight:700;
-  }
+  th { padding:5px 8px; text-align:right; font-size:10px; font-weight:700; color:var(--muted); text-transform:uppercase; letter-spacing:0.4px; background:var(--bg3); border-bottom:1px solid var(--border); white-space:nowrap; cursor:pointer; user-select:none; }
+  th:hover { color:var(--text); }
+  th.left { text-align:left; }
+  td { padding:5px 8px; text-align:right; border-bottom:1px solid var(--border3); font-size:12px; white-space:nowrap; font-weight:700; }
   td:first-child { text-align:left; }
   tr:hover td { background:#1e1e1e !important; cursor:pointer; }
-
-  /* ── Señales ── */
-  .sig-buy  { background:rgba(34,197,94,0.18);  color:var(--pos);   padding:2px 8px; border-radius:3px; font-size:11px; font-weight:700; }
-  .sig-sell { background:rgba(239,68,68,0.18);  color:var(--neg);   padding:2px 8px; border-radius:3px; font-size:11px; font-weight:700; }
-  .sig-neu  { background:rgba(136,136,136,0.12); color:var(--muted); padding:2px 8px; border-radius:3px; font-size:11px; }
-
-  /* ── Badge tipo ── */
-  .badge-c   { background:rgba(34,197,94,0.15);  color:var(--pos);    padding:1px 6px; border-radius:3px; font-size:10px; }
-  .badge-p   { background:rgba(239,68,68,0.15);  color:var(--neg);    padding:1px 6px; border-radius:3px; font-size:10px; }
-  .badge-cred { color:var(--pos); }
-  .badge-deb  { color:var(--neg); }
-
-  /* ── Panel de pares ── */
-  .pairs-section { margin-top:16px; }
-  .section-title {
-    font-size:11px; font-weight:700; color:var(--muted); text-transform:uppercase;
-    letter-spacing:1px; padding-bottom:8px; margin-bottom:10px;
-    border-bottom:1px solid var(--border);
-  }
-  .pairs-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(380px,1fr)); gap:10px; }
-  .pair-card {
-    background:var(--bg2); border:1px solid var(--border); border-radius:6px;
-    padding:12px 14px;
-  }
-  .pair-card.best { border-color:var(--accent); box-shadow:0 0 0 1px rgba(212,88,26,0.3); }
-  .pair-header { display:flex; justify-content:space-between; align-items:center; margin-bottom:8px; }
-  .pair-title { font-size:12px; font-weight:700; }
-  .pair-edge { font-size:13px; font-weight:700; }
-  .pair-row { display:flex; justify-content:space-between; font-size:11px; color:var(--muted); margin-bottom:3px; }
-  .pair-row b { color:var(--text); }
-  .pair-divider { border:none; border-top:1px solid var(--border3); margin:6px 0; }
-  .pair-action { margin-top:8px; padding:6px 10px; background:var(--bg3); border-radius:4px; font-size:11px; line-height:1.8; }
-
-  /* ── Loader ── */
-  .loader { text-align:center; padding:60px; color:var(--muted); font-size:13px; }
+  .arb-comprar { background:rgba(34,197,94,0.18); color:var(--pos); padding:2px 8px; border-radius:3px; font-size:11px; font-weight:700; }
+  .arb-vender  { background:rgba(239,68,68,0.18);  color:var(--neg); padding:2px 8px; border-radius:3px; font-size:11px; font-weight:700; }
+  .arb-neu     { color:var(--muted); font-size:11px; }
+  .loader { text-align:center; padding:60px; color:var(--muted); }
   .loader-bar { width:160px; height:2px; background:var(--border); border-radius:2px; overflow:hidden; margin:12px auto 0; }
   .loader-fill { height:100%; background:var(--accent); animation:load 1.4s ease infinite; }
   @keyframes load { 0%{width:0;margin-left:0} 50%{width:60%;margin-left:20%} 100%{width:0;margin-left:100%} }
-
-  /* ── Tabs ── */
-  .tabs { display:flex; gap:2px; margin-bottom:12px; }
-  .tab { padding:6px 14px; font-size:12px; font-weight:600; border:none; background:none;
-    color:var(--muted); cursor:pointer; border-radius:4px; font-family:var(--font); }
-  .tab:hover { background:var(--bg3); color:var(--text); }
-  .tab.active { background:var(--accent); color:#fff; }
-  .tab-content { display:none; }
-  .tab-content.active { display:block; }
-
+  .section-sep { font-size:10px; font-weight:700; color:var(--muted); text-transform:uppercase; letter-spacing:1px; padding:10px 0 8px; border-bottom:1px solid var(--border); margin-bottom:10px; }
+  .refresh-info { font-size:10px; color:var(--muted); }
   ::-webkit-scrollbar { width:6px; height:6px; }
   ::-webkit-scrollbar-track { background:var(--bg); }
   ::-webkit-scrollbar-thumb { background:#333; border-radius:3px; }
@@ -152,41 +73,29 @@
   <div class="logo">
     <div class="logo-icon">
       <svg viewBox="0 0 680 160" xmlns="http://www.w3.org/2000/svg" style="width:28px;height:28px;">
-        <polyline points="272,118 292,118 307,52 373,52 388,118 408,118"
-          fill="none" stroke="#fff" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+        <polyline points="272,118 292,118 307,52 373,52 388,118 408,118" fill="none" stroke="#fff" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
       </svg>
     </div>
     <div>
       <div class="logo-title">Mariposa <span>ARB</span></div>
-      <div class="logo-sub">Arbitrador de valor relativo · GGAL</div>
+      <div class="logo-sub">Arbitraje por costo relativo · GGAL</div>
     </div>
   </div>
-  <div class="header-right">
-    <div class="stat">
-      <div class="stat-lbl">GGAL Spot</div>
-      <div class="stat-val" id="spot-val">—</div>
-    </div>
-    <div class="stat">
-      <div class="stat-lbl">Días vto.</div>
-      <div class="stat-val" id="dias-val">—</div>
-    </div>
-    <div class="stat">
-      <div class="stat-lbl">TLR</div>
-      <div class="stat-val" id="tlr-val" style="color:var(--amber);">—</div>
-    </div>
+  <div class="hright">
+    <div class="stat"><div class="stat-lbl">Spot GGAL</div><div class="stat-val" id="spot-val">—</div></div>
+    <div class="stat"><div class="stat-lbl">Días vto.</div><div class="stat-val" id="dias-val">—</div></div>
+    <div class="stat"><div class="stat-lbl">TLR</div><div class="stat-val" id="tlr-val" style="color:var(--amber);">—</div></div>
     <div>
       <div class="live"><div class="dot"></div>EN VIVO</div>
-      <div style="font-size:9px;color:var(--muted);margin-top:2px;text-align:right;" id="update-time">—</div>
+      <div class="refresh-info" id="update-time">—</div>
     </div>
   </div>
 </header>
 
 <div class="container">
-
-  <!-- Controles -->
   <div class="controls">
     <div class="ctrl-group">
-      <span class="ctrl-lbl">Ancho mariposa</span>
+      <span class="ctrl-lbl">Ancho</span>
       <select id="ctrl-ancho">
         <option value="0">Todos</option>
         <option value="1" selected>+1 base</option>
@@ -195,563 +104,287 @@
       </select>
     </div>
     <div class="ctrl-group">
-      <span class="ctrl-lbl">Tipo</span>
-      <select id="ctrl-tipo">
-        <option value="ambos" selected>Calls + Puts</option>
-        <option value="calls">Solo Calls</option>
-        <option value="puts">Solo Puts</option>
-      </select>
+      <span class="ctrl-lbl">Moneyness ±%</span>
+      <input type="number" id="ctrl-moneyness" value="20" min="5" max="100" step="5" style="width:58px;">
     </div>
     <div class="ctrl-group">
-      <span class="ctrl-lbl">Ordenar por</span>
+      <span class="ctrl-lbl">Min ratio ARB</span>
+      <input type="number" id="ctrl-minratio" value="1.3" min="1.05" max="10" step="0.05" style="width:60px;">
+    </div>
+    <div class="ctrl-group">
+      <span class="ctrl-lbl">Ordenar</span>
       <select id="ctrl-orden">
         <option value="strike" selected>Strike central</option>
-        <option value="edge">Edge teórico</option>
-        <option value="costo">Costo (crédito primero)</option>
-        <option value="lleno">% Lleno</option>
-        <option value="rr">RR</option>
+        <option value="ratio">Ratio P/C</option>
+        <option value="diff">Diferencia $</option>
       </select>
     </div>
-    <div class="ctrl-group">
-      <span class="ctrl-lbl">Min edge %</span>
-      <input type="number" id="ctrl-minedge" value="5" min="0" max="100" step="1" style="width:60px;">
-    </div>
-    <div class="ctrl-group">
-      <span class="ctrl-lbl">Moneyness ±%</span>
-      <input type="number" id="ctrl-moneyness" value="20" min="5" max="100" step="5" style="width:60px;" title="Solo mostrar mariposas cuyo strike central esté dentro de este % del spot">
-    </div>
-    <div class="ctrl-group">
-      <span class="ctrl-lbl">TLR %</span>
-      <input type="number" id="ctrl-tlr" value="40" min="0" max="500" step="0.5" style="width:60px;">
-    </div>
     <button class="btn btn-primary" onclick="recalcular()">↺ Recalcular</button>
-    <button class="btn btn-secondary" onclick="toggleAutoRefresh()">⏱ Auto: <span id="auto-label">ON</span></button>
-    <span style="font-size:10px;color:var(--muted);margin-left:4px;" id="refresh-counter"></span>
+    <span class="refresh-info" id="refresh-counter"></span>
   </div>
 
-  <!-- Resumen -->
-  <div class="summary-grid">
-    <div class="sum-card">
-      <div class="sum-lbl">Total mariposas</div>
-      <div class="sum-val" id="sum-total" style="color:var(--blue);">—</div>
-    </div>
-    <div class="sum-card">
-      <div class="sum-lbl">Con crédito</div>
-      <div class="sum-val" id="sum-credito" style="color:var(--pos);">—</div>
-    </div>
-    <div class="sum-card">
-      <div class="sum-lbl">Subvaluadas (comprar)</div>
-      <div class="sum-val" id="sum-comprar" style="color:var(--pos);">—</div>
-    </div>
-    <div class="sum-card">
-      <div class="sum-lbl">Sobrevaluadas (vender)</div>
-      <div class="sum-val" id="sum-vender" style="color:var(--neg);">—</div>
-    </div>
-    <div class="sum-card">
-      <div class="sum-lbl">Mejor par ARB</div>
-      <div class="sum-val" id="sum-best-edge" style="color:var(--accent);">—</div>
-    </div>
-    <div class="sum-card">
-      <div class="sum-lbl">Edge acum. top 5</div>
-      <div class="sum-val" id="sum-edge-acum" style="color:var(--amber);">—</div>
-    </div>
+  <div class="summary">
+    <div class="sum-card"><div class="sum-lbl">Pares analizados</div><div class="sum-val" id="sum-pares" style="color:var(--blue);">—</div></div>
+    <div class="sum-card"><div class="sum-lbl">ARB detectados</div><div class="sum-val" id="sum-arb" style="color:var(--accent);">—</div></div>
+    <div class="sum-card"><div class="sum-lbl">Mejor ratio P/C</div><div class="sum-val" id="sum-best-ratio" style="color:var(--neg);">—</div></div>
+    <div class="sum-card"><div class="sum-lbl">Mayor diferencia $</div><div class="sum-val" id="sum-best-diff" style="color:var(--amber);">—</div></div>
+    <div class="sum-card"><div class="sum-lbl">Mejor crédito ARB</div><div class="sum-val" id="sum-credito" style="color:var(--pos);">—</div></div>
   </div>
 
-  <!-- Tabs -->
-  <div class="tabs">
-    <button class="tab active" onclick="showTab('tabla',this)">📊 Todas las mariposas</button>
-    <button class="tab" onclick="showTab('pares',this)">⚡ Pares ARB</button>
-    <button class="tab" onclick="showTab('rolleo',this)">🔄 Candidatas a rollear</button>
+  <div id="loader" class="loader">
+    Conectando al feed...
+    <div class="loader-bar"><div class="loader-fill"></div></div>
   </div>
 
-  <!-- TAB TABLA -->
-  <div id="tab-tabla" class="tab-content active">
-    <div id="loader" class="loader">
-      <div>Cargando datos de mercado...</div>
-      <div class="loader-bar"><div class="loader-fill"></div></div>
+  <div id="main-content" style="display:none;">
+
+    <!-- Oportunidades ARB -->
+    <div id="arb-section" style="display:none;">
+      <div class="section-sep">🔥 Oportunidades ARB — Ratio ≥ <span id="ratio-label">1.3</span>x · Vender la cara, Comprar la barata</div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr>
+            <th class="left" onclick="sortBy('strike')">Strike central</th>
+            <th onclick="sortBy('ancho')">Ancho</th>
+            <th onclick="sortBy('costo_c')" style="color:var(--pos);">Costo CALL</th>
+            <th onclick="sortBy('costo_p')" style="color:var(--neg);">Costo PUT</th>
+            <th onclick="sortBy('diff')" style="color:var(--amber);">Dif. $</th>
+            <th onclick="sortBy('ratio')" style="color:var(--accent);">Ratio P/C</th>
+            <th>Acción CALL</th>
+            <th>Acción PUT</th>
+            <th style="color:var(--pos);">Crédito neto</th>
+            <th onclick="sortBy('prob_c')">Prob C%</th>
+            <th onclick="sortBy('prob_p')">Prob P%</th>
+          </tr></thead>
+          <tbody id="arb-body"></tbody>
+        </table>
+      </div>
     </div>
-    <div class="table-wrap" id="tabla-wrap" style="display:none;">
+
+    <!-- Tabla completa -->
+    <div class="section-sep">📊 Todos los pares — Call vs Put mismo strike central</div>
+    <div class="table-wrap">
       <table>
-        <thead>
-          <tr>
-            <th style="text-align:left;">Strike</th>
-            <th>Tipo</th>
-            <th>Ancho</th>
-            <th>Costo Mkt</th>
-            <th>Valor BS</th>
-            <th>Edge $</th>
-            <th>Edge %</th>
-            <th>Señal</th>
-            <th>Max Win</th>
-            <th>Max Loss</th>
-            <th>BE ↑</th>
-            <th>BE ↓</th>
-            <th>Prob %</th>
-            <th>RR</th>
-            <th>% Lleno</th>
-            <th>VI usada</th>
-          </tr>
-        </thead>
+        <thead><tr>
+          <th class="left" onclick="sortBy('strike')">Strike central</th>
+          <th onclick="sortBy('ancho')">Ancho</th>
+          <th onclick="sortBy('costo_c')" style="color:var(--pos);">Costo CALL</th>
+          <th onclick="sortBy('costo_p')" style="color:var(--neg);">Costo PUT</th>
+          <th onclick="sortBy('diff')" style="color:var(--amber);">Dif. $</th>
+          <th onclick="sortBy('ratio')" style="color:var(--accent);">Ratio P/C</th>
+          <th>Señal CALL</th>
+          <th>Señal PUT</th>
+          <th onclick="sortBy('lleno_c')">%Lleno C</th>
+          <th onclick="sortBy('lleno_p')">%Lleno P</th>
+          <th onclick="sortBy('prob_c')">Prob C%</th>
+          <th onclick="sortBy('prob_p')">Prob P%</th>
+          <th>K0 / K2</th>
+        </tr></thead>
         <tbody id="tabla-body"></tbody>
       </table>
     </div>
   </div>
-
-  <!-- TAB PARES -->
-  <div id="tab-pares" class="tab-content">
-    <div id="pares-body" class="pairs-grid"></div>
-  </div>
-
-  <!-- TAB ROLLEO -->
-  <div id="tab-rolleo" class="tab-content">
-    <div style="margin-bottom:10px;padding:10px 14px;background:var(--bg2);border:1px solid var(--border);border-radius:6px;font-size:12px;color:var(--muted);line-height:1.8;">
-      📌 <b style="color:var(--text);">Candidatas a rollear:</b> mariposas que hoy son de débito pero donde el valor teórico BS es menor al costo de mercado — significa que el mercado las cotiza más baratas de lo que valen → podés venderlas.
-      O mariposas de crédito donde el teórico es mayor → comprarlas y cobrar.
-    </div>
-    <div class="table-wrap">
-      <table>
-        <thead>
-          <tr>
-            <th style="text-align:left;">Strike</th>
-            <th>Tipo</th>
-            <th>Costo Mkt</th>
-            <th>Valor BS</th>
-            <th>Edge $</th>
-            <th>Acción</th>
-            <th>Lotes sugeridos</th>
-            <th>P&L esperado</th>
-            <th>% Lleno</th>
-            <th>Prob %</th>
-          </tr>
-        </thead>
-        <tbody id="rolleo-body"></tbody>
-      </table>
-    </div>
-  </div>
-
 </div>
 
 <script>
-const MONITOR_URL = 'https://script.google.com/macros/s/AKfycbzAc6bBwt7qFJgR3vlIcleysDGKvylUCWudlXdK1BZRCnpv_OJUCpATlDuIqy5ipMae/exec';
+const MONITOR_URL='https://script.google.com/macros/s/AKfycbzAc6bBwt7qFJgR3vlIcleysDGKvylUCWudlXdK1BZRCnpv_OJUCpATlDuIqy5ipMae/exec';
+let spotGGAL=null,diasVto=37,tasaLibreRiesgo=40;
+let strikesDisponibles=[],strikeLast={};
+let allPares=[];
+let sortCol='strike',sortDir=1;
+let countdown=5;
 
-let spotGGAL = null;
-let diasVto = 37;
-let tasaLibreRiesgo = 40;
-let strikesDisponibles = [];
-let strikeLast = {};
-let allMaris = [];
-let autoRefresh = true;
-let refreshInterval = null;
-let countdown = 5;
+function normCDF(x){const a1=0.254829592,a2=-0.284496736,a3=1.421413741,a4=-1.453152027,a5=1.061405429,p=0.3275911;const s=x<0?-1:1;x=Math.abs(x)/Math.SQRT2;const t=1/(1+p*x);return 0.5*(1+s*(1-(((((a5*t+a4)*t+a3)*t+a2)*t+a1)*t)*Math.exp(-x*x)));}
+function probEntre(S,lo,hi,vi,T,r){if(!S||!lo||!hi||!T||lo>=hi||vi<=0)return null;const F=S*Math.exp(r*T);return Math.max(0,Math.min(1,normCDF(Math.log(F/lo)/(vi*Math.sqrt(T)))-normCDF(Math.log(F/hi)/(vi*Math.sqrt(T)))));}
+function fmtN(n,d=2){if(n===null||n===undefined||isNaN(n))return'—';return n.toLocaleString('es-AR',{minimumFractionDigits:d,maximumFractionDigits:d});}
 
-// ── BS ──────────────────────────────────────────────────────────────────
-function normCDF(x) {
-  const a1=0.254829592,a2=-0.284496736,a3=1.421413741,a4=-1.453152027,a5=1.061405429,p=0.3275911;
-  const s=x<0?-1:1; x=Math.abs(x)/Math.SQRT2;
-  const t=1/(1+p*x);
-  const y=1-(((((a5*t+a4)*t+a3)*t+a2)*t+a1)*t)*Math.exp(-x*x);
-  return 0.5*(1+s*y);
-}
-
-function bsPrice(S, K, T, r, sigma, tipo) {
-  if(T<=0||sigma<=0||S<=0||K<=0) return tipo==='C'?Math.max(S-K,0):Math.max(K-S,0);
-  const d1=(Math.log(S/K)+(r+0.5*sigma*sigma)*T)/(sigma*Math.sqrt(T));
-  const d2=d1-sigma*Math.sqrt(T);
-  const eRT=Math.exp(-r*T);
-  if(tipo==='C') return S*normCDF(d1)-K*eRT*normCDF(d2);
-  return K*eRT*normCDF(-d2)-S*normCDF(-d1);
-}
-
-function bsProbEntre(S, lo, hi, vi, T, r) {
-  if(!S||!lo||!hi||!T||lo>=hi) return null;
-  const F=S*Math.exp(r*T);
-  const d2lo=Math.log(F/hi)/(vi*Math.sqrt(T));
-  const d2hi=Math.log(F/lo)/(vi*Math.sqrt(T));
-  return Math.max(0,Math.min(1,normCDF(d2hi)-normCDF(d2lo)));
-}
-
-// ── Valor teórico mariposa BS ──────────────────────────────────────────
-// Butterfly = C(K0) - 2*C(K1) + C(K2) con K0 < K1 < K2
-function bsButterfly(S, K0, K1, K2, T, r, vi, tipo) {
-  const p0 = bsPrice(S, K0, T, r, vi, tipo);
-  const p1 = bsPrice(S, K1, T, r, vi, tipo);
-  const p2 = bsPrice(S, K2, T, r, vi, tipo);
-  return p0 - 2*p1 + p2;
-}
-
-// ── Calcular todas las mariposas ───────────────────────────────────────
-function calcularMaris() {
-  if(!spotGGAL || !strikesDisponibles.length) return [];
-  const S = spotGGAL;
-  const T = (diasVto||37) / 365;
-  const r = Math.log(1 + tasaLibreRiesgo/100);
-  const ks = [...strikesDisponibles].sort((a,b)=>a-b);
-  const anchoCtrl = parseInt(document.getElementById('ctrl-ancho').value);
-  const tipoCtrl  = document.getElementById('ctrl-tipo').value;
-  const maris = [];
-
-  const anchos = anchoCtrl === 0 ? [1,2,3] : [anchoCtrl];
-
-  for(const ancho of anchos) {
-    for(let i=0; i<ks.length-ancho*2; i++) {
-      const K0 = ks[i];
-      const K1 = ks[i+ancho];
-      const K2 = ks[i+ancho*2];
-      if(!K0||!K1||!K2) continue;
-
-      // Calls
-      if(tipoCtrl !== 'puts') {
-        const ld0=strikeLast[K0], ld1=strikeLast[K1], ld2=strikeLast[K2];
-        if(ld0?.call!=null && ld1?.call!=null && ld2?.call!=null) {
-          const costoMkt = ld0.call - 2*ld1.call + ld2.call;
-          const vi = ((ld0.viCall||0)+(ld1.viCall||0)+(ld2.viCall||0))/3 || 0.60;
-          const valorBS = bsButterfly(S, K0, K1, K2, T, r, vi, 'C');
-          maris.push(buildMari(K0,K1,K2,'C',costoMkt,valorBS,vi,S,T,r,ancho));
-        }
+function calcularPares(){
+  if(!spotGGAL||!strikesDisponibles.length)return[];
+  const S=spotGGAL,T=(diasVto||37)/365,r=Math.log(1+tasaLibreRiesgo/100);
+  const ks=[...strikesDisponibles].sort((a,b)=>a-b);
+  const anchoCtrl=parseInt(document.getElementById('ctrl-ancho').value);
+  const monPct=parseFloat(document.getElementById('ctrl-moneyness').value)||100;
+  const anchos=anchoCtrl===0?[1,2,3]:[anchoCtrl];
+  const pares=[];
+  for(const ancho of anchos){
+    for(let i=ancho;i<ks.length-ancho;i++){
+      const K1=ks[i],K0=ks[i-ancho],K2=ks[i+ancho];
+      if(monPct<100&&Math.abs((K1-S)/S*100)>monPct)continue;
+      const l0=strikeLast[K0],l1=strikeLast[K1],l2=strikeLast[K2];
+      if(!l0||!l1||!l2)continue;
+      const c0=l0.call,c1=l1.call,c2=l2.call,p0=l0.put,p1=l1.put,p2=l2.put;
+      if(c0==null||c1==null||c2==null||p0==null||p1==null||p2==null)continue;
+      const costoCall=c0-2*c1+c2,costoPut=p0-2*p1+p2;
+      if(Math.abs(costoCall)<0.01&&Math.abs(costoPut)<0.01)continue;
+      const ratio=Math.abs(costoCall)>0.01?costoPut/costoCall:null;
+      const diff=costoPut-costoCall;
+      const minR=parseFloat(document.getElementById('ctrl-minratio').value)||1.3;
+      let señal='NEUTRAL',accionCall='—',accionPut='—';
+      if(ratio!==null){
+        if(ratio>=minR){señal='ARB';accionCall='▲ COMPRAR';accionPut='▼ VENDER';}
+        else if(ratio<=1/minR){señal='ARB';accionCall='▼ VENDER';accionPut='▲ COMPRAR';}
       }
-
-      // Puts
-      if(tipoCtrl !== 'calls') {
-        const ld0=strikeLast[K0], ld1=strikeLast[K1], ld2=strikeLast[K2];
-        if(ld0?.put!=null && ld1?.put!=null && ld2?.put!=null) {
-          const costoMkt = ld0.put - 2*ld1.put + ld2.put;
-          const vi = ((ld0.viPut||0)+(ld1.viPut||0)+(ld2.viPut||0))/3 || 0.60;
-          const valorBS = bsButterfly(S, K0, K1, K2, T, r, vi, 'P');
-          maris.push(buildMari(K0,K1,K2,'P',costoMkt,valorBS,vi,S,T,r,ancho));
-        }
-      }
+      const alaMin=Math.round(Math.min(K1-K0,K2-K1));
+      const viC=((l0.viCall||0)+(l1.viCall||0)+(l2.viCall||0))/3||0.6;
+      const viP=((l0.viPut||0)+(l1.viPut||0)+(l2.viPut||0))/3||0.6;
+      const probC=probEntre(S,K0+costoCall,K2-costoCall,viC,T,r);
+      const probP=probEntre(S,K0+costoPut,K2-costoPut,viP,T,r);
+      const llenC=alaMin>0?costoCall/alaMin*100:null;
+      const llenP=alaMin>0?costoPut/alaMin*100:null;
+      pares.push({K0,K1,K2,ancho,costoCall,costoPut,diff,ratio,señal,accionCall,accionPut,
+        creditoNeto:Math.abs(diff),probC,probP,llenC,llenP});
     }
   }
-  return maris;
+  return pares;
 }
 
-function buildMari(K0,K1,K2,tipo,costoMkt,valorBS,vi,S,T,r,ancho) {
-  const alaMin = Math.round(Math.min(K1-K0, K2-K1));
-  const maxWin  = Math.max(0, alaMin - costoMkt);
-  const maxLoss = costoMkt >= 0 ? costoMkt : Math.max(0, alaMin + costoMkt);
-  const beInf = K0 + costoMkt;
-  const beSup = K2 - costoMkt;
-  const prob  = beInf < beSup ? bsProbEntre(S, beInf, beSup, vi, T, r) : null;
-  const rr    = maxLoss > 0 ? (maxWin / maxLoss) : null;
-  const lleno = alaMin > 0 ? (costoMkt / alaMin * 100) : null;
+function sortBy(col){if(sortCol===col)sortDir*=-1;else{sortCol=col;sortDir=1;}renderTablas(allPares);}
 
-  // Edge: diferencia entre valor teórico y costo de mercado
-  // Positivo → mercado más barato que BS → COMPRAR
-  // Negativo → mercado más caro que BS → VENDER
-  const edge = valorBS - costoMkt;
-  const edgePct = Math.abs(valorBS) > 0.01 ? (edge / Math.abs(valorBS) * 100) : 0;
-
-  const señal = Math.abs(edgePct) < 5 ? 'NEUTRAL'
-    : edge > 0 ? 'COMPRAR'   // mercado barato → comprar
-    : 'VENDER';               // mercado caro → vender
-
-  return {
-    K0,K1,K2,tipo,ancho,costoMkt,valorBS,edge,edgePct,señal,
-    maxWin,maxLoss,beInf,beSup,prob,rr,lleno,vi
-  };
-}
-
-// ── Render tabla ──────────────────────────────────────────────────────
-function fmtN(n,d=2) {
-  if(n===null||n===undefined||isNaN(n)) return '—';
-  return n.toLocaleString('es-AR',{minimumFractionDigits:d,maximumFractionDigits:d});
-}
-
-function renderTabla(maris) {
-  const orden = document.getElementById('ctrl-orden').value;
-  const minEdge = parseFloat(document.getElementById('ctrl-minedge').value)||0;
-  const moneynessPct = parseFloat(document.getElementById('ctrl-moneyness')?.value)||100;
-
-  // Filtrar por moneyness: solo strikes centrales dentro de ±% del spot
-  let filtered = maris;
-  if(spotGGAL && moneynessPct < 100) {
-    filtered = maris.filter(m => Math.abs((m.K1 - spotGGAL) / spotGGAL * 100) <= moneynessPct);
-  }
-
-  let sorted = [...filtered];
-  if(orden==='strike') sorted.sort((a,b)=>a.K1-b.K1);
-  else if(orden==='costo')  sorted.sort((a,b)=>a.costoMkt-b.costoMkt);
-  else if(orden==='lleno') sorted.sort((a,b)=>(a.lleno||999)-(b.lleno||999));
-  else if(orden==='rr') sorted.sort((a,b)=>(b.rr||0)-(a.rr||0));
-  else sorted.sort((a,b)=>Math.abs(b.edgePct)-Math.abs(a.edgePct)); // edge desc
-
-  const tbody = document.getElementById('tabla-body');
-  tbody.innerHTML = sorted.map(m => {
-    if(Math.abs(m.edgePct) < minEdge && m.señal !== 'NEUTRAL') {}
-    const tipoBadge = m.tipo==='C'
-      ? '<span class="badge-c">CALL</span>'
-      : '<span class="badge-p">PUT</span>';
-    const costoCls = m.costoMkt < 0 ? 'badge-cred' : m.costoMkt > 0 ? '' : '';
-    const costoStr = `<span class="${costoCls}">${fmtN(m.costoMkt)}</span>`;
-    const edgeStr  = `<span style="color:${m.edge>0?'#22c55e':m.edge<0?'#ef4444':'#888'};font-weight:700;">${m.edge>0?'+':''}${fmtN(m.edge)}</span>`;
-    const edgePctStr = `<span style="color:${Math.abs(m.edgePct)>15?'#f59e0b':Math.abs(m.edgePct)>5?'#a0c4ff':'#888'};font-weight:700;">${m.edgePct>0?'+':''}${fmtN(m.edgePct,1)}%</span>`;
-    const señalBadge = m.señal==='COMPRAR' ? '<span class="sig-buy">▲ COMPRAR</span>'
-      : m.señal==='VENDER' ? '<span class="sig-sell">▼ VENDER</span>'
-      : '<span class="sig-neu">— NEU</span>';
-    const llenoCls = m.lleno===null?'':m.lleno<0?'color:#22c55e':m.lleno<15?'color:#22c55e':m.lleno<30?'color:#a3e635':m.lleno<50?'color:#f59e0b':'color:#ef4444';
-    const probStr  = m.prob!==null?`<span style="color:${m.prob>0.6?'#22c55e':m.prob>0.4?'#f59e0b':'#ef4444'}">${fmtN(m.prob*100,1)}%</span>`:'—';
-
-    const isATM = spotGGAL && Math.abs((m.K1 - spotGGAL) / spotGGAL * 100) < 3;
-    const isNearATM = spotGGAL && Math.abs((m.K1 - spotGGAL) / spotGGAL * 100) < 8;
-    const rowBg = isATM ? 'background:rgba(212,88,26,0.12);' : isNearATM ? 'background:rgba(160,196,255,0.05);' : '';
-    return `<tr onclick="marClick(${m.K0},${m.K1},${m.K2},'${m.tipo}')" style="${rowBg}">
-      <td style="text-align:left;color:#c0c0d0;">${m.K0.toLocaleString('es-AR')} / <b style="color:${isATM?'#f59e0b':isNearATM?'#a0c4ff':'#c0c0d0'}">${m.K1.toLocaleString('es-AR')}</b>${isATM?' <span style="background:#f59e0b;color:#000;font-size:9px;padding:1px 4px;border-radius:2px;font-weight:700;">ATM</span>':''} / ${m.K2.toLocaleString('es-AR')}</td>
-      <td>${tipoBadge}</td>
-      <td style="color:var(--muted);">+${m.ancho}</td>
-      <td>${costoStr}</td>
-      <td style="color:var(--blue);">${fmtN(m.valorBS)}</td>
-      <td>${edgeStr}</td>
-      <td>${edgePctStr}</td>
-      <td>${señalBadge}</td>
-      <td style="color:#22c55e;">${fmtN(m.maxWin)}</td>
-      <td style="color:#ef4444;">${fmtN(m.maxLoss)}</td>
-      <td style="color:#22c55e;font-size:11px;">${fmtN(m.beSup,0)}</td>
-      <td style="color:#ef4444;font-size:11px;">${fmtN(m.beInf,0)}</td>
-      <td>${probStr}</td>
-      <td style="color:#f59e0b;">${m.rr?fmtN(m.rr):'—'}</td>
-      <td style="${llenoCls}">${m.lleno!==null?fmtN(m.lleno,1)+'%':'—'}</td>
-      <td style="color:var(--muted);font-size:11px;">${fmtN(m.vi*100,1)}%</td>
-    </tr>`;
-  }).join('');
-}
-
-// ── Render pares ARB ──────────────────────────────────────────────────
-function renderPares(maris) {
-  const minEdge = parseFloat(document.getElementById('ctrl-minedge').value)||0;
-  const comprar = maris.filter(m=>m.señal==='COMPRAR'&&m.edgePct>=minEdge)
-    .sort((a,b)=>b.edgePct-a.edgePct).slice(0,10);
-  const vender  = maris.filter(m=>m.señal==='VENDER'&&Math.abs(m.edgePct)>=minEdge)
-    .sort((a,b)=>Math.abs(b.edgePct)-Math.abs(a.edgePct)).slice(0,10);
-
-  // Generar pares: combinar la mejor de comprar con la mejor de vender
-  const pares = [];
-  const n = Math.min(comprar.length, vender.length, 5);
-  for(let i=0;i<n;i++) {
-    const c = comprar[i], v = vender[i];
-    const edgeTotal = c.edgePct + Math.abs(v.edgePct);
-    pares.push({comprar:c, vender:v, edgeTotal});
-  }
-  pares.sort((a,b)=>b.edgeTotal-a.edgeTotal);
-
-  const div = document.getElementById('pares-body');
-  if(!pares.length) {
-    div.innerHTML='<div style="color:var(--muted);padding:20px;">No hay pares con edge suficiente. Bajá el mínimo de edge.</div>';
-    return;
-  }
-
-  div.innerHTML = pares.map((p,i) => {
-    const c=p.comprar, v=p.vender;
-    const isBest = i===0;
-    return `<div class="pair-card ${isBest?'best':''}">
-      <div class="pair-header">
-        <div class="pair-title">${isBest?'⭐ ':''}Par ARB #${i+1}</div>
-        <div class="pair-edge" style="color:var(--accent);">Edge: +${fmtN(p.edgeTotal,1)}%</div>
-      </div>
-      <div class="pair-row">
-        <span>▲ COMPRAR ${c.tipo==='C'?'CALL':'PUT'} ${c.K0.toLocaleString('es-AR')}/${c.K1.toLocaleString('es-AR')}/${c.K2.toLocaleString('es-AR')}</span>
-        <b style="color:#22c55e;">Costo: ${fmtN(c.costoMkt)}</b>
-      </div>
-      <div class="pair-row">
-        <span style="font-size:10px;color:var(--muted);">BS: ${fmtN(c.valorBS)} · Edge: +${fmtN(c.edgePct,1)}%</span>
-      </div>
-      <hr class="pair-divider">
-      <div class="pair-row">
-        <span>▼ VENDER ${v.tipo==='C'?'CALL':'PUT'} ${v.K0.toLocaleString('es-AR')}/${v.K1.toLocaleString('es-AR')}/${v.K2.toLocaleString('es-AR')}</span>
-        <b style="color:#ef4444;">Cobro: ${fmtN(Math.abs(v.costoMkt))}</b>
-      </div>
-      <div class="pair-row">
-        <span style="font-size:10px;color:var(--muted);">BS: ${fmtN(v.valorBS)} · Edge: ${fmtN(v.edgePct,1)}%</span>
-      </div>
-      <hr class="pair-divider">
-      <div class="pair-action">
-        <span style="color:var(--pos);">💰 Resultado neto: </span>
-        <b style="color:var(--text);">${fmtN(c.costoMkt + v.costoMkt)}</b>
-        <span style="color:var(--muted);font-size:10px;"> (${c.costoMkt+v.costoMkt<=0?'CRÉDITO NETO ✓':'débito neto'})</span><br>
-        <span style="color:var(--muted);">Comprar mariposa subvaluada + Vender mariposa sobrevaluada.</span><br>
-        <span style="color:var(--amber);">Si ambas expiran sin valor → ganás la diferencia de edge.</span>
-      </div>
-    </div>`;
-  }).join('');
-}
-
-// ── Render rolleo ─────────────────────────────────────────────────────
-function renderRolleo(maris) {
-  // Candidatas: edge absoluto > minEdge, ordenadas por edge
-  const minEdge = parseFloat(document.getElementById('ctrl-minedge').value)||0;
-  const moneynessPctR = parseFloat(document.getElementById('ctrl-moneyness')?.value)||100;
-  const cands = maris
-    .filter(m=>Math.abs(m.edgePct)>=minEdge)
-    .filter(m=>!spotGGAL||moneynessPctR>=100||Math.abs((m.K1-spotGGAL)/spotGGAL*100)<=moneynessPctR)
-    .sort((a,b)=>Math.abs(b.edgePct)-Math.abs(a.edgePct))
-    .slice(0,30);
-
-  const tbody = document.getElementById('rolleo-body');
-  tbody.innerHTML = cands.map(m => {
-    const accion = m.señal==='COMPRAR'
-      ? '<span class="sig-buy">▲ Comprar (cobrar al vender la actual)</span>'
-      : m.señal==='VENDER'
-      ? '<span class="sig-sell">▼ Vender (cobrar la prima)</span>'
-      : '<span class="sig-neu">— Mantener</span>';
-
-    // Lotes sugeridos: cuántos lotes con $10.000 de capital
-    const capital = 10000;
-    const costoAbs = Math.abs(m.costoMkt) * 100; // x100 acciones por lote
-    const lotes = costoAbs > 0 ? Math.floor(capital / costoAbs) : '∞';
-    const pnlEsperado = m.edge * (lotes||1) * 100;
-
-    const tipoBadge = m.tipo==='C'
-      ? '<span class="badge-c">C</span>'
-      : '<span class="badge-p">P</span>';
-
-    return `<tr>
-      <td style="text-align:left;color:#c0c0d0;">${m.K0.toLocaleString('es-AR')}/${m.K1.toLocaleString('es-AR')}/${m.K2.toLocaleString('es-AR')}</td>
-      <td>${tipoBadge}</td>
-      <td style="color:${m.costoMkt<0?'#22c55e':'var(--text)'};">${fmtN(m.costoMkt)}</td>
-      <td style="color:var(--blue);">${fmtN(m.valorBS)}</td>
-      <td style="color:${m.edge>0?'#22c55e':'#ef4444'};font-weight:700;">${m.edge>0?'+':''}${fmtN(m.edge)}</td>
-      <td>${accion}</td>
-      <td style="color:var(--amber);">${lotes} lotes</td>
-      <td style="color:${pnlEsperado>0?'#22c55e':'#ef4444'};">$${fmtN(pnlEsperado,0)}</td>
-      <td style="color:${m.lleno!==null&&m.lleno<0?'#22c55e':m.lleno<20?'#a3e635':'#f59e0b'}">${m.lleno!==null?fmtN(m.lleno,1)+'%':'—'}</td>
-      <td style="color:${m.prob>0.6?'#22c55e':m.prob>0.4?'#f59e0b':'#ef4444'}">${m.prob!==null?fmtN(m.prob*100,1)+'%':'—'}</td>
-    </tr>`;
-  }).join('');
-}
-
-// ── Resumen ───────────────────────────────────────────────────────────
-function renderResumen(maris) {
-  const credito  = maris.filter(m=>m.costoMkt<0).length;
-  const comprar  = maris.filter(m=>m.señal==='COMPRAR').length;
-  const vender   = maris.filter(m=>m.señal==='VENDER').length;
-  const bestEdge = maris.reduce((b,m)=>Math.abs(m.edgePct)>Math.abs(b)?Math.abs(m.edgePct):b, 0);
-  const top5edge = [...maris].sort((a,b)=>Math.abs(b.edgePct)-Math.abs(a.edgePct))
-    .slice(0,5).reduce((s,m)=>s+Math.abs(m.edgePct),0);
-
-  document.getElementById('sum-total').textContent   = maris.length;
-  document.getElementById('sum-credito').textContent = credito;
-  document.getElementById('sum-comprar').textContent = comprar;
-  document.getElementById('sum-vender').textContent  = vender;
-  document.getElementById('sum-best-edge').textContent = fmtN(bestEdge,1)+'%';
-  document.getElementById('sum-edge-acum').textContent = fmtN(top5edge,1)+'%';
-}
-
-// ── Recalcular todo ───────────────────────────────────────────────────
-function recalcular() {
-  tasaLibreRiesgo = parseFloat(document.getElementById('ctrl-tlr').value)||40;
-  allMaris = calcularMaris();
-  if(!allMaris.length) return;
-  renderResumen(allMaris);
-  renderTabla(allMaris);
-  renderPares(allMaris);
-  renderRolleo(allMaris);
-}
-
-function marClick(K0,K1,K2,tipo) {
-  // Por ahora solo highlight — en el futuro abrir el payoff
-  console.log(`Mariposa ${tipo} ${K0}/${K1}/${K2}`);
-}
-
-// ── Fetch datos ───────────────────────────────────────────────────────
-function parseCSV(text) {
-  return text.split('\n').map(line => {
-    const cols=[]; let cur='', inQ=false;
-    for(let c of line) {
-      if(c==='"') inQ=!inQ;
-      else if(c===','&&!inQ){cols.push(cur.trim());cur='';}
-      else cur+=c;
-    }
-    cols.push(cur.trim());
-    return cols;
+function sorted(arr){
+  return[...arr].sort((a,b)=>{
+    let va,vb;
+    if(sortCol==='strike'){va=a.K1;vb=b.K1;}
+    else if(sortCol==='ancho'){va=a.ancho;vb=b.ancho;}
+    else if(sortCol==='ratio'){va=a.ratio||0;vb=b.ratio||0;}
+    else if(sortCol==='diff'){va=Math.abs(a.diff);vb=Math.abs(b.diff);}
+    else if(sortCol==='costo_c'){va=a.costoCall;vb=b.costoCall;}
+    else if(sortCol==='costo_p'){va=a.costoPut;vb=b.costoPut;}
+    else if(sortCol==='lleno_c'){va=a.llenC||999;vb=b.llenC||999;}
+    else if(sortCol==='lleno_p'){va=a.llenP||999;vb=b.llenP||999;}
+    else if(sortCol==='prob_c'){va=a.probC||0;vb=b.probC||0;}
+    else if(sortCol==='prob_p'){va=a.probP||0;vb=b.probP||0;}
+    else{va=a.K1;vb=b.K1;}
+    return(va-vb)*sortDir;
   });
 }
 
-async function fetchData() {
-  try {
-    const controller = new AbortController();
-    const timeout = setTimeout(()=>controller.abort(), 8000);
-    const res = await fetch(MONITOR_URL+'?t='+Date.now(), {signal:controller.signal});
-    clearTimeout(timeout);
-    const json = await res.json();
+function atmBadge(K1){
+  if(!spotGGAL)return'';
+  const pct=Math.abs((K1-spotGGAL)/spotGGAL*100);
+  if(pct<3)return' <span style="background:#f59e0b;color:#000;font-size:9px;padding:1px 4px;border-radius:2px;font-weight:700;">ATM</span>';
+  if(pct<8)return' <span style="background:rgba(160,196,255,0.2);color:#a0c4ff;font-size:9px;padding:1px 4px;border-radius:2px;">~ATM</span>';
+  return'';
+}
+function llenoCss(v){if(v===null)return'color:var(--muted)';if(v<0)return'color:var(--pos)';if(v<15)return'color:var(--pos)';if(v<30)return'color:#a3e635';if(v<50)return'color:var(--amber)';return'color:var(--neg)';}
+function probCss(v){if(!v)return'color:var(--muted)';if(v>0.6)return'color:var(--pos)';if(v>0.4)return'color:var(--amber)';return'color:var(--neg)';}
+function accionBadge(a){if(a==='▲ COMPRAR')return`<span class="arb-comprar">▲ Comprar</span>`;if(a==='▼ VENDER')return`<span class="arb-vender">▼ Vender</span>`;return`<span class="arb-neu">—</span>`;}
+function costoColor(v){if(v<0)return'color:var(--pos)';if(v>0)return'color:var(--text)';return'color:var(--muted)';}
 
-    // Fila 2 (index 1): spot, días, TLR
-    const ggal = json[1];
-    if(ggal) {
-      const last=parseFloat(ggal[3]);
-      if(!isNaN(last)&&last>0) {
-        spotGGAL=last;
-        document.getElementById('spot-val').textContent=last.toLocaleString('es-AR',{minimumFractionDigits:2,maximumFractionDigits:2});
-      }
-      const d=parseInt(ggal[12]);
-      if(!isNaN(d)&&d>0) { diasVto=d; document.getElementById('dias-val').textContent=d; }
-      // TLR
-      for(let fi=1;fi<=7;fi++) {
-        const fr=json[fi]; if(!fr) continue;
-        const v=parseFloat((fr[14]||'').toString().replace(',','.').replace('%','').trim());
-        if(!isNaN(v)&&v>0) {
-          tasaLibreRiesgo=v;
-          document.getElementById('tlr-val').textContent=v.toFixed(1)+'%';
-          document.getElementById('ctrl-tlr').value=v.toFixed(2);
-          break;
-        }
-      }
-    }
+function renderTablas(pares){
+  const minR=parseFloat(document.getElementById('ctrl-minratio').value)||1.3;
+  document.getElementById('ratio-label').textContent=minR.toFixed(2);
+  const arb=pares.filter(p=>p.señal==='ARB');
 
-    // Filas 2-30: cadena de opciones
-    strikesDisponibles=[];
-    strikeLast={};
-    for(let i=2;i<=30;i++) {
-      const r=json[i]; if(!r||!r[0]) continue;
-      const K=parseFloat((r[6]||'').toString().trim());
-      if(isNaN(K)||K<=0) continue;
-      const parseVI=s=>{if(!s||s.trim()===''||s.trim()==='-')return null;const n=parseFloat(s.replace('%','').replace(',','.').trim());if(isNaN(n)||n<=0)return null;return n>1?n/100:n;};
-      strikesDisponibles.push(K);
-      strikeLast[K]={
-        call:parseFloat(r[3])||null,
-        put:parseFloat(r[10])||null,
-        bid:parseFloat(r[2])||null, bidPut:parseFloat(r[9])||null,
-        offer:parseFloat(r[4])||null, offerPut:parseFloat(r[11])||null,
-        viCall:parseVI(r[1]), viPut:parseVI(r[8]),
-      };
-    }
+  // Resumen
+  document.getElementById('sum-pares').textContent=pares.length;
+  document.getElementById('sum-arb').textContent=arb.length;
+  const bestRatio=pares.reduce((b,p)=>p.ratio!==null&&p.ratio>b?p.ratio:b,0);
+  const bestDiff=pares.reduce((b,p)=>Math.abs(p.diff)>b?Math.abs(p.diff):b,0);
+  const bestCred=arb.reduce((b,p)=>p.creditoNeto>b?p.creditoNeto:b,0);
+  document.getElementById('sum-best-ratio').textContent=bestRatio>0?fmtN(bestRatio)+'x':'—';
+  document.getElementById('sum-best-diff').textContent=bestDiff>0?'$'+fmtN(bestDiff):'—';
+  document.getElementById('sum-credito').textContent=bestCred>0?'$'+fmtN(bestCred):'—';
 
-    document.getElementById('loader').style.display='none';
-    document.getElementById('tabla-wrap').style.display='block';
-    document.getElementById('update-time').textContent='Act. '+new Date().toLocaleTimeString('es-AR');
+  const s=sorted(pares);
+  const sArb=sorted(arb);
 
-    recalcular();
-  } catch(e) {
-    console.error('Fetch error:', e);
+  // Tabla ARB
+  const arbSec=document.getElementById('arb-section');
+  if(arb.length){
+    arbSec.style.display='block';
+    document.getElementById('arb-body').innerHTML=sArb.map(p=>{
+      const isAtm=spotGGAL&&Math.abs((p.K1-spotGGAL)/spotGGAL*100)<4;
+      const putCara=p.accionPut==='▼ VENDER';
+      const descArb=putCara
+        ?`PUT ${fmtN(p.ratio)}x más cara → Vender PUT, Comprar CALL`
+        :`CALL ${fmtN(1/(p.ratio||1))}x más cara → Vender CALL, Comprar PUT`;
+      return`<tr style="background:rgba(212,88,26,0.10);">
+        <td style="text-align:left;"><b style="color:${isAtm?'#f59e0b':'#c0c0d0'}">${p.K1.toLocaleString('es-AR')}</b>${atmBadge(p.K1)}</td>
+        <td style="color:var(--muted);">+${p.ancho}</td>
+        <td style="${costoColor(p.costoCall)}">${fmtN(p.costoCall)}</td>
+        <td style="${costoColor(p.costoPut)}">${fmtN(p.costoPut)}</td>
+        <td style="color:var(--amber);font-size:13px;">${p.diff>0?'+':''}${fmtN(p.diff)}</td>
+        <td style="color:var(--accent);font-size:14px;font-weight:800;">${p.ratio!==null?fmtN(p.ratio)+'x':'—'}</td>
+        <td>${accionBadge(p.accionCall)}</td>
+        <td>${accionBadge(p.accionPut)}</td>
+        <td style="color:var(--pos);font-weight:700;">+$${fmtN(p.creditoNeto)}</td>
+        <td style="${probCss(p.probC)}">${p.probC!==null?fmtN(p.probC*100,1)+'%':'—'}</td>
+        <td style="${probCss(p.probP)}">${p.probP!==null?fmtN(p.probP*100,1)+'%':'—'}</td>
+      </tr>`;
+    }).join('');
+  } else {
+    arbSec.style.display='none';
   }
+
+  // Tabla completa
+  let lastK1=null;
+  document.getElementById('tabla-body').innerHTML=s.map(p=>{
+    const isAtm=spotGGAL&&Math.abs((p.K1-spotGGAL)/spotGGAL*100)<4;
+    const isArb=p.señal==='ARB';
+    const newGroup=p.K1!==lastK1; lastK1=p.K1;
+    const bg=isArb?'background:rgba(212,88,26,0.08);':isAtm?'background:rgba(245,158,11,0.05);':'';
+    const sep=newGroup?'border-top:1px solid var(--border2);':'';
+    const ratioVal=p.ratio!==null?fmtN(p.ratio)+'x':'—';
+    const ratioColor=isArb?'color:var(--accent);font-weight:800;':'color:var(--muted);';
+    return`<tr style="${bg}${sep}">
+      <td style="text-align:left;"><b style="color:${isAtm?'#f59e0b':'#c0c0d0'}">${p.K1.toLocaleString('es-AR')}</b>${atmBadge(p.K1)}</td>
+      <td style="color:var(--muted);">+${p.ancho}</td>
+      <td style="${costoColor(p.costoCall)}">${fmtN(p.costoCall)}</td>
+      <td style="${costoColor(p.costoPut)}">${fmtN(p.costoPut)}</td>
+      <td style="color:${Math.abs(p.diff)>5?'var(--amber)':'var(--muted)'};">${p.diff>0?'+':''}${fmtN(p.diff)}</td>
+      <td style="${ratioColor}">${ratioVal}</td>
+      <td>${accionBadge(p.accionCall)}</td>
+      <td>${accionBadge(p.accionPut)}</td>
+      <td style="${llenoCss(p.llenC)}">${p.llenC!==null?fmtN(p.llenC,1)+'%':'—'}</td>
+      <td style="${llenoCss(p.llenP)}">${p.llenP!==null?fmtN(p.llenP,1)+'%':'—'}</td>
+      <td style="${probCss(p.probC)}">${p.probC!==null?fmtN(p.probC*100,1)+'%':'—'}</td>
+      <td style="${probCss(p.probP)}">${p.probP!==null?fmtN(p.probP*100,1)+'%':'—'}</td>
+      <td style="color:var(--muted);font-size:11px;">${p.K0.toLocaleString('es-AR')} / ${p.K2.toLocaleString('es-AR')}</td>
+    </tr>`;
+  }).join('');
 }
 
-// ── Auto refresh ──────────────────────────────────────────────────────
-function startAutoRefresh() {
-  countdown=5;
-  refreshInterval = setInterval(()=>{
-    countdown--;
-    document.getElementById('refresh-counter').textContent=`Próxima actualización: ${countdown}s`;
-    if(countdown<=0) { countdown=5; fetchData(); }
-  },1000);
+function recalcular(){
+  allPares=calcularPares();
+  renderTablas(allPares);
 }
 
-function toggleAutoRefresh() {
-  autoRefresh=!autoRefresh;
-  document.getElementById('auto-label').textContent=autoRefresh?'ON':'OFF';
-  if(autoRefresh) startAutoRefresh();
-  else { clearInterval(refreshInterval); document.getElementById('refresh-counter').textContent=''; }
+async function fetchData(){
+  try{
+    const ctrl=new AbortController();
+    setTimeout(()=>ctrl.abort(),8000);
+    const res=await fetch(MONITOR_URL+'?t='+Date.now(),{signal:ctrl.signal});
+    const json=await res.json();
+    const ggal=json[1];
+    if(ggal){
+      const last=parseFloat(ggal[3]);
+      if(!isNaN(last)&&last>0){spotGGAL=last;document.getElementById('spot-val').textContent=last.toLocaleString('es-AR',{minimumFractionDigits:2,maximumFractionDigits:2});}
+      const d=parseInt(ggal[12]);
+      if(!isNaN(d)&&d>0){diasVto=d;document.getElementById('dias-val').textContent=d;}
+      for(let fi=1;fi<=7;fi++){const fr=json[fi];if(!fr)continue;const v=parseFloat((fr[14]||'').toString().replace(',','.').replace('%','').trim());if(!isNaN(v)&&v>0){tasaLibreRiesgo=v;document.getElementById('tlr-val').textContent=v.toFixed(1)+'%';break;}}
+    }
+    strikesDisponibles=[];strikeLast={};
+    for(let i=2;i<=30;i++){
+      const r=json[i];if(!r||!r[0])continue;
+      const K=parseFloat((r[6]||'').toString().trim());if(isNaN(K)||K<=0)continue;
+      const pV=s=>{if(!s||s.trim()==='-')return null;const n=parseFloat(s.replace('%','').replace(',','.').trim());if(isNaN(n)||n<=0)return null;return n>1?n/100:n;};
+      strikesDisponibles.push(K);
+      strikeLast[K]={call:parseFloat(r[3])||null,put:parseFloat(r[10])||null,viCall:pV(r[1]),viPut:pV(r[8])};
+    }
+    document.getElementById('loader').style.display='none';
+    document.getElementById('main-content').style.display='block';
+    document.getElementById('update-time').textContent='Act. '+new Date().toLocaleTimeString('es-AR');
+    recalcular();
+  }catch(e){console.error(e);}
 }
 
-// ── Tabs ──────────────────────────────────────────────────────────────
-function showTab(name,btn) {
-  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
-  document.querySelectorAll('.tab-content').forEach(t=>t.classList.remove('active'));
-  btn.classList.add('active');
-  document.getElementById('tab-'+name).classList.add('active');
-}
+setInterval(()=>{
+  countdown--;
+  document.getElementById('refresh-counter').textContent=`Próxima act: ${countdown}s`;
+  if(countdown<=0){countdown=5;fetchData();}
+},1000);
 
-// ── Init ──────────────────────────────────────────────────────────────
 fetchData();
-startAutoRefresh();
 </script>
 </body>
 </html>
