@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>🦋 Mariposa ARB — GGAL</title>
+<title>🦋 Mariposa ARB</title>
 <link href="https://fonts.googleapis.com/css2?family=Calibri:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
   :root {
@@ -16,6 +16,7 @@
   }
   * { margin:0; padding:0; box-sizing:border-box; }
   body { background:var(--bg); color:var(--text); font-family:var(--font); font-size:13px; }
+
   header {
     background:var(--bg2); border-bottom:1px solid var(--border);
     padding:0 20px; height:50px; display:flex; align-items:center;
@@ -33,34 +34,83 @@
   .live { display:flex; align-items:center; gap:5px; background:rgba(212,88,26,0.2); color:var(--accent); font-size:9px; font-weight:700; padding:4px 9px; border-radius:3px; letter-spacing:1px; border:1px solid rgba(212,88,26,0.4); }
   .dot { width:5px; height:5px; border-radius:50%; background:var(--accent); animation:blink 2s infinite; }
   @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.2} }
-  .container { max-width:1800px; margin:0 auto; padding:12px 20px; }
-  .controls { display:flex; align-items:center; gap:12px; flex-wrap:wrap; background:var(--bg2); border:1px solid var(--border); border-radius:6px; padding:10px 14px; margin-bottom:12px; }
+
+  .container { max-width:1600px; margin:0 auto; padding:12px 20px; }
+
+  .controls {
+    display:flex; align-items:center; gap:12px; flex-wrap:wrap;
+    background:var(--bg2); border:1px solid var(--border); border-radius:6px;
+    padding:10px 14px; margin-bottom:12px;
+  }
   .ctrl-group { display:flex; align-items:center; gap:6px; }
   .ctrl-lbl { font-size:10px; color:var(--muted); font-weight:700; text-transform:uppercase; letter-spacing:0.5px; white-space:nowrap; }
-  select, input[type=number] { background:var(--bg3); border:1px solid var(--border2); border-radius:4px; color:var(--text); font-family:var(--font); font-size:12px; padding:4px 8px; outline:none; }
+  select, input[type=number] {
+    background:var(--bg3); border:1px solid var(--border2); border-radius:4px;
+    color:var(--text); font-family:var(--font); font-size:12px; padding:4px 8px; outline:none;
+  }
   select:focus, input[type=number]:focus { border-color:var(--accent); }
-  .btn { padding:5px 12px; border-radius:4px; border:none; cursor:pointer; font-family:var(--font); font-size:11px; font-weight:700; }
+  .btn { padding:5px 14px; border-radius:4px; border:none; cursor:pointer; font-family:var(--font); font-size:12px; font-weight:700; }
   .btn-primary { background:var(--accent); color:#fff; }
-  .summary { display:grid; grid-template-columns:repeat(5,1fr); gap:8px; margin-bottom:12px; }
-  .sum-card { background:var(--bg2); border:1px solid var(--border); border-radius:6px; padding:10px 12px; text-align:center; }
+
+  /* Summary */
+  .summary { display:grid; grid-template-columns:repeat(4,1fr); gap:8px; margin-bottom:14px; }
+  .sum-card { background:var(--bg2); border:1px solid var(--border); border-radius:6px; padding:10px 14px; text-align:center; }
   .sum-lbl { font-size:9px; color:var(--muted); text-transform:uppercase; letter-spacing:0.5px; font-weight:700; }
-  .sum-val { font-size:20px; font-weight:700; margin-top:3px; }
-  .table-wrap { overflow-x:auto; margin-bottom:24px; }
+  .sum-val { font-size:22px; font-weight:700; margin-top:3px; }
+
+  /* Secciones */
+  .section { margin-bottom:28px; }
+  .section-title {
+    font-size:11px; font-weight:700; color:var(--muted); text-transform:uppercase;
+    letter-spacing:1px; padding-bottom:8px; margin-bottom:10px;
+    border-bottom:2px solid var(--border2); display:flex; align-items:center; gap:8px;
+  }
+  .section-title span { color:var(--text); font-size:13px; }
+
+  /* Pares */
+  .pares-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(340px,1fr)); gap:10px; }
+  .par-card {
+    background:var(--bg2); border:1px solid var(--border); border-radius:6px;
+    padding:12px 14px; position:relative;
+  }
+  .par-card.top { border-color:var(--accent); }
+  .par-rank { position:absolute; top:8px; right:10px; font-size:10px; color:var(--muted); }
+  .par-edge { font-size:22px; font-weight:800; color:var(--pos); margin-bottom:8px; }
+  .par-row { display:flex; justify-content:space-between; align-items:center; padding:5px 0; border-bottom:1px solid var(--border3); font-size:12px; }
+  .par-row:last-child { border-bottom:none; }
+  .par-label { color:var(--muted); font-size:11px; }
+  .par-tipo-c { background:rgba(34,197,94,0.15); color:var(--pos); padding:1px 6px; border-radius:3px; font-size:10px; font-weight:700; }
+  .par-tipo-p { background:rgba(239,68,68,0.15); color:var(--neg); padding:1px 6px; border-radius:3px; font-size:10px; font-weight:700; }
+  .comprar-badge { background:rgba(34,197,94,0.2); color:var(--pos); padding:2px 8px; border-radius:3px; font-size:11px; font-weight:700; }
+  .vender-badge  { background:rgba(239,68,68,0.2);  color:var(--neg); padding:2px 8px; border-radius:3px; font-size:11px; font-weight:700; }
+
+  /* Tabla mariposas */
+  .table-wrap { overflow-x:auto; }
   table { width:100%; border-collapse:collapse; }
-  th { padding:5px 8px; text-align:right; font-size:10px; font-weight:700; color:var(--muted); text-transform:uppercase; letter-spacing:0.4px; background:var(--bg3); border-bottom:1px solid var(--border); white-space:nowrap; cursor:pointer; user-select:none; }
+  th {
+    padding:5px 10px; text-align:right; font-size:10px; font-weight:700;
+    color:var(--muted); text-transform:uppercase; letter-spacing:0.4px;
+    background:var(--bg3); border-bottom:1px solid var(--border);
+    white-space:nowrap; cursor:pointer; user-select:none;
+  }
   th:hover { color:var(--text); }
   th.left { text-align:left; }
-  td { padding:5px 8px; text-align:right; border-bottom:1px solid var(--border3); font-size:12px; white-space:nowrap; font-weight:700; }
-  td:first-child { text-align:left; }
-  tr:hover td { background:#1e1e1e !important; cursor:pointer; }
-  .arb-comprar { background:rgba(34,197,94,0.18); color:var(--pos); padding:2px 8px; border-radius:3px; font-size:11px; font-weight:700; }
-  .arb-vender  { background:rgba(239,68,68,0.18);  color:var(--neg); padding:2px 8px; border-radius:3px; font-size:11px; font-weight:700; }
-  .arb-neu     { color:var(--muted); font-size:11px; }
+  td { padding:5px 10px; text-align:right; border-bottom:1px solid var(--border3); font-size:12px; white-space:nowrap; font-weight:700; }
+  td.left { text-align:left; }
+  tr:hover td { background:#1e1e1e !important; }
+
+  /* Color costo */
+  .costo-credito { color:var(--pos); }
+  .costo-bajo    { color:#a3e635; }
+  .costo-medio   { color:var(--amber); }
+  .costo-alto    { color:var(--neg); }
+  .costo-normal  { color:var(--text); }
+
   .loader { text-align:center; padding:60px; color:var(--muted); }
   .loader-bar { width:160px; height:2px; background:var(--border); border-radius:2px; overflow:hidden; margin:12px auto 0; }
   .loader-fill { height:100%; background:var(--accent); animation:load 1.4s ease infinite; }
   @keyframes load { 0%{width:0;margin-left:0} 50%{width:60%;margin-left:20%} 100%{width:0;margin-left:100%} }
-  .section-sep { font-size:10px; font-weight:700; color:var(--muted); text-transform:uppercase; letter-spacing:1px; padding:10px 0 8px; border-bottom:1px solid var(--border); margin-bottom:10px; }
+
   .refresh-info { font-size:10px; color:var(--muted); }
   ::-webkit-scrollbar { width:6px; height:6px; }
   ::-webkit-scrollbar-track { background:var(--bg); }
@@ -78,11 +128,11 @@
     </div>
     <div>
       <div class="logo-title">Mariposa <span>ARB</span></div>
-      <div class="logo-sub">Arbitraje por costo relativo · GGAL</div>
+      <div class="logo-sub">Arbitraje por costo · GGAL</div>
     </div>
   </div>
   <div class="hright">
-    <div class="stat"><div class="stat-lbl">Spot GGAL</div><div class="stat-val" id="spot-val">—</div></div>
+    <div class="stat"><div class="stat-lbl">Spot</div><div class="stat-val" id="spot-val">—</div></div>
     <div class="stat"><div class="stat-lbl">Días vto.</div><div class="stat-val" id="dias-val">—</div></div>
     <div class="stat"><div class="stat-lbl">TLR</div><div class="stat-val" id="tlr-val" style="color:var(--amber);">—</div></div>
     <div>
@@ -93,6 +143,7 @@
 </header>
 
 <div class="container">
+
   <div class="controls">
     <div class="ctrl-group">
       <span class="ctrl-lbl">Ancho</span>
@@ -105,30 +156,21 @@
     </div>
     <div class="ctrl-group">
       <span class="ctrl-lbl">Moneyness ±%</span>
-      <input type="number" id="ctrl-moneyness" value="20" min="5" max="100" step="5" style="width:58px;">
+      <input type="number" id="ctrl-moneyness" value="25" min="5" max="100" step="5" style="width:58px;">
     </div>
     <div class="ctrl-group">
-      <span class="ctrl-lbl">Min ratio ARB</span>
-      <input type="number" id="ctrl-minratio" value="1.3" min="1.05" max="10" step="0.05" style="width:60px;">
-    </div>
-    <div class="ctrl-group">
-      <span class="ctrl-lbl">Ordenar</span>
-      <select id="ctrl-orden">
-        <option value="strike" selected>Strike central</option>
-        <option value="ratio">Ratio P/C</option>
-        <option value="diff">Diferencia $</option>
-      </select>
+      <span class="ctrl-lbl">Edge mínimo $</span>
+      <input type="number" id="ctrl-minedge" value="5" min="0" max="500" step="1" style="width:58px;">
     </div>
     <button class="btn btn-primary" onclick="recalcular()">↺ Recalcular</button>
     <span class="refresh-info" id="refresh-counter"></span>
   </div>
 
   <div class="summary">
-    <div class="sum-card"><div class="sum-lbl">Pares analizados</div><div class="sum-val" id="sum-pares" style="color:var(--blue);">—</div></div>
-    <div class="sum-card"><div class="sum-lbl">ARB detectados</div><div class="sum-val" id="sum-arb" style="color:var(--accent);">—</div></div>
-    <div class="sum-card"><div class="sum-lbl">Mejor ratio P/C</div><div class="sum-val" id="sum-best-ratio" style="color:var(--neg);">—</div></div>
-    <div class="sum-card"><div class="sum-lbl">Mayor diferencia $</div><div class="sum-val" id="sum-best-diff" style="color:var(--amber);">—</div></div>
-    <div class="sum-card"><div class="sum-lbl">Mejor crédito ARB</div><div class="sum-val" id="sum-credito" style="color:var(--pos);">—</div></div>
+    <div class="sum-card"><div class="sum-lbl">Mariposas analizadas</div><div class="sum-val" id="sum-total" style="color:var(--blue);">—</div></div>
+    <div class="sum-card"><div class="sum-lbl">Pares ARB (C/P)</div><div class="sum-val" id="sum-cp" style="color:var(--accent);">—</div></div>
+    <div class="sum-card"><div class="sum-lbl">Pares ARB (C/C)</div><div class="sum-val" id="sum-cc" style="color:var(--pos);">—</div></div>
+    <div class="sum-card"><div class="sum-lbl">Pares ARB (P/P)</div><div class="sum-val" id="sum-pp" style="color:var(--neg);">—</div></div>
   </div>
 
   <div id="loader" class="loader">
@@ -138,228 +180,338 @@
 
   <div id="main-content" style="display:none;">
 
-    <!-- Oportunidades ARB -->
-    <div id="arb-section" style="display:none;">
-      <div class="section-sep">🔥 Oportunidades ARB — Ratio ≥ <span id="ratio-label">1.3</span>x · Vender la cara, Comprar la barata</div>
+    <!-- PAR 1: Call vs Put mismo centro y ancho -->
+    <div class="section">
+      <div class="section-title">
+        ⚡ Par 1 — Call vs Put · mismo strike central y ancho
+        <span id="cp-count">0 pares</span>
+      </div>
+      <div class="pares-grid" id="pares-cp"></div>
+    </div>
+
+    <!-- PAR 2: Call vs Call distinto centro -->
+    <div class="section">
+      <div class="section-title">
+        📗 Par 2 — Call vs Call · distinto strike central
+        <span id="cc-count">0 pares</span>
+      </div>
+      <div class="pares-grid" id="pares-cc"></div>
+    </div>
+
+    <!-- PAR 3: Put vs Put distinto centro -->
+    <div class="section">
+      <div class="section-title">
+        📕 Par 3 — Put vs Put · distinto strike central
+        <span id="pp-count">0 pares</span>
+      </div>
+      <div class="pares-grid" id="pares-pp"></div>
+    </div>
+
+    <!-- Tabla completa de todas las mariposas -->
+    <div class="section">
+      <div class="section-title">
+        📊 Todas las mariposas · ordenadas por costo
+        <span id="tabla-count">—</span>
+      </div>
       <div class="table-wrap">
         <table>
           <thead><tr>
-            <th class="left" onclick="sortBy('strike')">Strike central</th>
+            <th class="left" onclick="sortBy('tipo')">Tipo</th>
+            <th class="left" onclick="sortBy('k1')">Strike central</th>
             <th onclick="sortBy('ancho')">Ancho</th>
-            <th onclick="sortBy('costo_c')" style="color:var(--pos);">Costo CALL</th>
-            <th onclick="sortBy('costo_p')" style="color:var(--neg);">Costo PUT</th>
-            <th onclick="sortBy('diff')" style="color:var(--amber);">Dif. $</th>
-            <th onclick="sortBy('ratio')" style="color:var(--accent);">Ratio P/C</th>
-            <th>Acción CALL</th>
-            <th>Acción PUT</th>
-            <th style="color:var(--pos);">Crédito neto</th>
-            <th onclick="sortBy('prob_c')">Prob C%</th>
-            <th onclick="sortBy('prob_p')">Prob P%</th>
+            <th onclick="sortBy('costo')">Costo $</th>
+            <th onclick="sortBy('maxwin')">Max Win</th>
+            <th onclick="sortBy('maxloss')">Max Loss</th>
+            <th onclick="sortBy('be_sup')">BE ↑</th>
+            <th onclick="sortBy('be_inf')">BE ↓</th>
+            <th onclick="sortBy('prob')">Prob %</th>
+            <th onclick="sortBy('lleno')">% Lleno</th>
+            <th>K0 / K2</th>
           </tr></thead>
-          <tbody id="arb-body"></tbody>
+          <tbody id="tabla-body"></tbody>
         </table>
       </div>
     </div>
 
-    <!-- Tabla completa -->
-    <div class="section-sep">📊 Todos los pares — Call vs Put mismo strike central</div>
-    <div class="table-wrap">
-      <table>
-        <thead><tr>
-          <th class="left" onclick="sortBy('strike')">Strike central</th>
-          <th onclick="sortBy('ancho')">Ancho</th>
-          <th onclick="sortBy('costo_c')" style="color:var(--pos);">Costo CALL</th>
-          <th onclick="sortBy('costo_p')" style="color:var(--neg);">Costo PUT</th>
-          <th onclick="sortBy('diff')" style="color:var(--amber);">Dif. $</th>
-          <th onclick="sortBy('ratio')" style="color:var(--accent);">Ratio P/C</th>
-          <th>Señal CALL</th>
-          <th>Señal PUT</th>
-          <th onclick="sortBy('lleno_c')">%Lleno C</th>
-          <th onclick="sortBy('lleno_p')">%Lleno P</th>
-          <th onclick="sortBy('prob_c')">Prob C%</th>
-          <th onclick="sortBy('prob_p')">Prob P%</th>
-          <th>K0 / K2</th>
-        </tr></thead>
-        <tbody id="tabla-body"></tbody>
-      </table>
-    </div>
   </div>
 </div>
 
 <script>
 const MONITOR_URL='https://script.google.com/macros/s/AKfycbzAc6bBwt7qFJgR3vlIcleysDGKvylUCWudlXdK1BZRCnpv_OJUCpATlDuIqy5ipMae/exec';
-let spotGGAL=null,diasVto=37,tasaLibreRiesgo=40;
-let strikesDisponibles=[],strikeLast={};
-let allPares=[];
-let sortCol='strike',sortDir=1;
+let spotGGAL=null, diasVto=37, tasaLibreRiesgo=40;
+let strikesDisponibles=[], strikeLast={};
+let todasMaris=[];
+let sortCol='costo', sortDir=1;
 let countdown=5;
 
-function normCDF(x){const a1=0.254829592,a2=-0.284496736,a3=1.421413741,a4=-1.453152027,a5=1.061405429,p=0.3275911;const s=x<0?-1:1;x=Math.abs(x)/Math.SQRT2;const t=1/(1+p*x);return 0.5*(1+s*(1-(((((a5*t+a4)*t+a3)*t+a2)*t+a1)*t)*Math.exp(-x*x)));}
-function probEntre(S,lo,hi,vi,T,r){if(!S||!lo||!hi||!T||lo>=hi||vi<=0)return null;const F=S*Math.exp(r*T);return Math.max(0,Math.min(1,normCDF(Math.log(F/lo)/(vi*Math.sqrt(T)))-normCDF(Math.log(F/hi)/(vi*Math.sqrt(T)))));}
-function fmtN(n,d=2){if(n===null||n===undefined||isNaN(n))return'—';return n.toLocaleString('es-AR',{minimumFractionDigits:d,maximumFractionDigits:d});}
+// ── Helpers ──────────────────────────────────────────────────────────
+function normCDF(x){
+  const a1=0.254829592,a2=-0.284496736,a3=1.421413741,a4=-1.453152027,a5=1.061405429,p=0.3275911;
+  const s=x<0?-1:1; x=Math.abs(x)/Math.SQRT2;
+  const t=1/(1+p*x);
+  return 0.5*(1+s*(1-(((((a5*t+a4)*t+a3)*t+a2)*t+a1)*t)*Math.exp(-x*x)));
+}
+function probEntre(S,lo,hi,vi,T,r){
+  if(!S||!lo||!hi||!T||lo>=hi||vi<=0) return null;
+  const F=S*Math.exp(r*T);
+  return Math.max(0,Math.min(1,
+    normCDF(Math.log(F/lo)/(vi*Math.sqrt(T))) - normCDF(Math.log(F/hi)/(vi*Math.sqrt(T)))
+  ));
+}
+function fmtN(n,d=2){ if(n===null||n===undefined||isNaN(n))return'—'; return n.toLocaleString('es-AR',{minimumFractionDigits:d,maximumFractionDigits:d}); }
+function fmtK(k){ return k.toLocaleString('es-AR'); }
 
-function calcularPares(){
-  if(!spotGGAL||!strikesDisponibles.length)return[];
-  const S=spotGGAL,T=(diasVto||37)/365,r=Math.log(1+tasaLibreRiesgo/100);
+// ── Calcular todas las mariposas ──────────────────────────────────────
+function calcularTodasMaris(){
+  if(!spotGGAL||!strikesDisponibles.length) return [];
+  const S=spotGGAL;
+  const T=(diasVto||37)/365;
+  const r=Math.log(1+tasaLibreRiesgo/100);
   const ks=[...strikesDisponibles].sort((a,b)=>a-b);
   const anchoCtrl=parseInt(document.getElementById('ctrl-ancho').value);
   const monPct=parseFloat(document.getElementById('ctrl-moneyness').value)||100;
   const anchos=anchoCtrl===0?[1,2,3]:[anchoCtrl];
-  const pares=[];
+  const maris=[];
+
   for(const ancho of anchos){
-    for(let i=ancho;i<ks.length-ancho;i++){
-      const K1=ks[i],K0=ks[i-ancho],K2=ks[i+ancho];
-      if(monPct<100&&Math.abs((K1-S)/S*100)>monPct)continue;
-      const l0=strikeLast[K0],l1=strikeLast[K1],l2=strikeLast[K2];
-      if(!l0||!l1||!l2)continue;
-      const c0=l0.call,c1=l1.call,c2=l2.call,p0=l0.put,p1=l1.put,p2=l2.put;
-      if(c0==null||c1==null||c2==null||p0==null||p1==null||p2==null)continue;
-      const costoCall=c0-2*c1+c2,costoPut=p0-2*p1+p2;
-      if(Math.abs(costoCall)<0.01&&Math.abs(costoPut)<0.01)continue;
-      const ratio=Math.abs(costoCall)>0.01?costoPut/costoCall:null;
-      const diff=costoPut-costoCall;
-      const minR=parseFloat(document.getElementById('ctrl-minratio').value)||1.3;
-      let señal='NEUTRAL',accionCall='—',accionPut='—';
-      if(ratio!==null){
-        if(ratio>=minR){señal='ARB';accionCall='▲ COMPRAR';accionPut='▼ VENDER';}
-        else if(ratio<=1/minR){señal='ARB';accionCall='▼ VENDER';accionPut='▲ COMPRAR';}
+    for(let i=ancho; i<ks.length-ancho; i++){
+      const K1=ks[i], K0=ks[i-ancho], K2=ks[i+ancho];
+      // Filtro moneyness sobre el strike central
+      if(monPct<100 && Math.abs((K1-S)/S*100)>monPct) continue;
+
+      const l0=strikeLast[K0], l1=strikeLast[K1], l2=strikeLast[K2];
+      if(!l0||!l1||!l2) continue;
+
+      // ── Call ──
+      if(l0.call!=null && l1.call!=null && l2.call!=null){
+        const costo=l0.call - 2*l1.call + l2.call;
+        const vi=((l0.viCall||0)+(l1.viCall||0)+(l2.viCall||0))/3||0.6;
+        maris.push(buildMari('C',K0,K1,K2,ancho,costo,vi,S,T,r));
       }
-      const alaMin=Math.round(Math.min(K1-K0,K2-K1));
-      const viC=((l0.viCall||0)+(l1.viCall||0)+(l2.viCall||0))/3||0.6;
-      const viP=((l0.viPut||0)+(l1.viPut||0)+(l2.viPut||0))/3||0.6;
-      const probC=probEntre(S,K0+costoCall,K2-costoCall,viC,T,r);
-      const probP=probEntre(S,K0+costoPut,K2-costoPut,viP,T,r);
-      const llenC=alaMin>0?costoCall/alaMin*100:null;
-      const llenP=alaMin>0?costoPut/alaMin*100:null;
-      pares.push({K0,K1,K2,ancho,costoCall,costoPut,diff,ratio,señal,accionCall,accionPut,
-        creditoNeto:Math.abs(diff),probC,probP,llenC,llenP});
+      // ── Put ──
+      if(l0.put!=null && l1.put!=null && l2.put!=null){
+        const costo=l0.put - 2*l1.put + l2.put;
+        const vi=((l0.viPut||0)+(l1.viPut||0)+(l2.viPut||0))/3||0.6;
+        maris.push(buildMari('P',K0,K1,K2,ancho,costo,vi,S,T,r));
+      }
     }
   }
-  return pares;
+  return maris;
 }
 
-function sortBy(col){if(sortCol===col)sortDir*=-1;else{sortCol=col;sortDir=1;}renderTablas(allPares);}
-
-function sorted(arr){
-  return[...arr].sort((a,b)=>{
-    let va,vb;
-    if(sortCol==='strike'){va=a.K1;vb=b.K1;}
-    else if(sortCol==='ancho'){va=a.ancho;vb=b.ancho;}
-    else if(sortCol==='ratio'){va=a.ratio||0;vb=b.ratio||0;}
-    else if(sortCol==='diff'){va=Math.abs(a.diff);vb=Math.abs(b.diff);}
-    else if(sortCol==='costo_c'){va=a.costoCall;vb=b.costoCall;}
-    else if(sortCol==='costo_p'){va=a.costoPut;vb=b.costoPut;}
-    else if(sortCol==='lleno_c'){va=a.llenC||999;vb=b.llenC||999;}
-    else if(sortCol==='lleno_p'){va=a.llenP||999;vb=b.llenP||999;}
-    else if(sortCol==='prob_c'){va=a.probC||0;vb=b.probC||0;}
-    else if(sortCol==='prob_p'){va=a.probP||0;vb=b.probP||0;}
-    else{va=a.K1;vb=b.K1;}
-    return(va-vb)*sortDir;
-  });
+function buildMari(tipo,K0,K1,K2,ancho,costo,vi,S,T,r){
+  const alaMin=Math.round(Math.min(K1-K0,K2-K1));
+  const maxWin=Math.max(0, alaMin-costo);
+  const maxLoss=costo>=0 ? costo : Math.max(0, alaMin+costo);
+  const beInf=K0+costo;
+  const beSup=K2-costo;
+  const prob=beInf<beSup?probEntre(S,beInf,beSup,vi,T,r):null;
+  const lleno=alaMin>0?costo/alaMin*100:null;
+  const isATM=Math.abs((K1-S)/S*100)<4;
+  return {tipo,K0,K1,K2,ancho,costo,maxWin,maxLoss,beInf,beSup,prob,lleno,vi,alaMin,isATM};
 }
 
-function atmBadge(K1){
-  if(!spotGGAL)return'';
-  const pct=Math.abs((K1-spotGGAL)/spotGGAL*100);
-  if(pct<3)return' <span style="background:#f59e0b;color:#000;font-size:9px;padding:1px 4px;border-radius:2px;font-weight:700;">ATM</span>';
-  if(pct<8)return' <span style="background:rgba(160,196,255,0.2);color:#a0c4ff;font-size:9px;padding:1px 4px;border-radius:2px;">~ATM</span>';
-  return'';
+// ── Generar pares ─────────────────────────────────────────────────────
+// Dado un array de mariposas, devuelve los mejores pares por edge (cara - barata)
+// Restricción: los strikes de las dos mariposas NO deben superponerse
+function strikesSuperponen(a,b){
+  // Los strikes de a: [a.K0, a.K1, a.K2] — los de b: [b.K0, b.K1, b.K2]
+  // Se superponen si comparten algún strike
+  const sa=new Set([a.K0,a.K1,a.K2]);
+  return [b.K0,b.K1,b.K2].some(k=>sa.has(k));
 }
-function llenoCss(v){if(v===null)return'color:var(--muted)';if(v<0)return'color:var(--pos)';if(v<15)return'color:var(--pos)';if(v<30)return'color:#a3e635';if(v<50)return'color:var(--amber)';return'color:var(--neg)';}
-function probCss(v){if(!v)return'color:var(--muted)';if(v>0.6)return'color:var(--pos)';if(v>0.4)return'color:var(--amber)';return'color:var(--neg)';}
-function accionBadge(a){if(a==='▲ COMPRAR')return`<span class="arb-comprar">▲ Comprar</span>`;if(a==='▼ VENDER')return`<span class="arb-vender">▼ Vender</span>`;return`<span class="arb-neu">—</span>`;}
-function costoColor(v){if(v<0)return'color:var(--pos)';if(v>0)return'color:var(--text)';return'color:var(--muted)';}
 
-function renderTablas(pares){
-  const minR=parseFloat(document.getElementById('ctrl-minratio').value)||1.3;
-  document.getElementById('ratio-label').textContent=minR.toFixed(2);
-  const arb=pares.filter(p=>p.señal==='ARB');
-
-  // Resumen
-  document.getElementById('sum-pares').textContent=pares.length;
-  document.getElementById('sum-arb').textContent=arb.length;
-  const bestRatio=pares.reduce((b,p)=>p.ratio!==null&&p.ratio>b?p.ratio:b,0);
-  const bestDiff=pares.reduce((b,p)=>Math.abs(p.diff)>b?Math.abs(p.diff):b,0);
-  const bestCred=arb.reduce((b,p)=>p.creditoNeto>b?p.creditoNeto:b,0);
-  document.getElementById('sum-best-ratio').textContent=bestRatio>0?fmtN(bestRatio)+'x':'—';
-  document.getElementById('sum-best-diff').textContent=bestDiff>0?'$'+fmtN(bestDiff):'—';
-  document.getElementById('sum-credito').textContent=bestCred>0?'$'+fmtN(bestCred):'—';
-
-  const s=sorted(pares);
-  const sArb=sorted(arb);
-
-  // Tabla ARB
-  const arbSec=document.getElementById('arb-section');
-  if(arb.length){
-    arbSec.style.display='block';
-    document.getElementById('arb-body').innerHTML=sArb.map(p=>{
-      const isAtm=spotGGAL&&Math.abs((p.K1-spotGGAL)/spotGGAL*100)<4;
-      const putCara=p.accionPut==='▼ VENDER';
-      const descArb=putCara
-        ?`PUT ${fmtN(p.ratio)}x más cara → Vender PUT, Comprar CALL`
-        :`CALL ${fmtN(1/(p.ratio||1))}x más cara → Vender CALL, Comprar PUT`;
-      return`<tr style="background:rgba(212,88,26,0.10);">
-        <td style="text-align:left;"><b style="color:${isAtm?'#f59e0b':'#c0c0d0'}">${p.K1.toLocaleString('es-AR')}</b>${atmBadge(p.K1)}</td>
-        <td style="color:var(--muted);">+${p.ancho}</td>
-        <td style="${costoColor(p.costoCall)}">${fmtN(p.costoCall)}</td>
-        <td style="${costoColor(p.costoPut)}">${fmtN(p.costoPut)}</td>
-        <td style="color:var(--amber);font-size:13px;">${p.diff>0?'+':''}${fmtN(p.diff)}</td>
-        <td style="color:var(--accent);font-size:14px;font-weight:800;">${p.ratio!==null?fmtN(p.ratio)+'x':'—'}</td>
-        <td>${accionBadge(p.accionCall)}</td>
-        <td>${accionBadge(p.accionPut)}</td>
-        <td style="color:var(--pos);font-weight:700;">+$${fmtN(p.creditoNeto)}</td>
-        <td style="${probCss(p.probC)}">${p.probC!==null?fmtN(p.probC*100,1)+'%':'—'}</td>
-        <td style="${probCss(p.probP)}">${p.probP!==null?fmtN(p.probP*100,1)+'%':'—'}</td>
-      </tr>`;
-    }).join('');
-  } else {
-    arbSec.style.display='none';
+function generarPares(maris, minEdge){
+  // Ordenar por costo ascendente
+  const sorted=[...maris].sort((a,b)=>a.costo-b.costo);
+  const pares=[];
+  // Para cada combinación: la más barata como compradora, la más cara como vendedora
+  for(let i=0; i<sorted.length; i++){
+    for(let j=sorted.length-1; j>i; j--){
+      const barata=sorted[i], cara=sorted[j];
+      const edge=cara.costo-barata.costo;
+      if(edge<minEdge) break; // ya no hay más pares con edge suficiente
+      if(!strikesSuperponen(barata,cara)){
+        pares.push({barata,cara,edge});
+        break; // el mejor par para esta "barata" es el primero que no se superpone
+      }
+    }
   }
+  // Ordenar por edge desc, tomar top 8
+  return pares.sort((a,b)=>b.edge-a.edge).slice(0,8);
+}
 
-  // Tabla completa
-  let lastK1=null;
-  document.getElementById('tabla-body').innerHTML=s.map(p=>{
-    const isAtm=spotGGAL&&Math.abs((p.K1-spotGGAL)/spotGGAL*100)<4;
-    const isArb=p.señal==='ARB';
-    const newGroup=p.K1!==lastK1; lastK1=p.K1;
-    const bg=isArb?'background:rgba(212,88,26,0.08);':isAtm?'background:rgba(245,158,11,0.05);':'';
-    const sep=newGroup?'border-top:1px solid var(--border2);':'';
-    const ratioVal=p.ratio!==null?fmtN(p.ratio)+'x':'—';
-    const ratioColor=isArb?'color:var(--accent);font-weight:800;':'color:var(--muted);';
-    return`<tr style="${bg}${sep}">
-      <td style="text-align:left;"><b style="color:${isAtm?'#f59e0b':'#c0c0d0'}">${p.K1.toLocaleString('es-AR')}</b>${atmBadge(p.K1)}</td>
-      <td style="color:var(--muted);">+${p.ancho}</td>
-      <td style="${costoColor(p.costoCall)}">${fmtN(p.costoCall)}</td>
-      <td style="${costoColor(p.costoPut)}">${fmtN(p.costoPut)}</td>
-      <td style="color:${Math.abs(p.diff)>5?'var(--amber)':'var(--muted)'};">${p.diff>0?'+':''}${fmtN(p.diff)}</td>
-      <td style="${ratioColor}">${ratioVal}</td>
-      <td>${accionBadge(p.accionCall)}</td>
-      <td>${accionBadge(p.accionPut)}</td>
-      <td style="${llenoCss(p.llenC)}">${p.llenC!==null?fmtN(p.llenC,1)+'%':'—'}</td>
-      <td style="${llenoCss(p.llenP)}">${p.llenP!==null?fmtN(p.llenP,1)+'%':'—'}</td>
-      <td style="${probCss(p.probC)}">${p.probC!==null?fmtN(p.probC*100,1)+'%':'—'}</td>
-      <td style="${probCss(p.probP)}">${p.probP!==null?fmtN(p.probP*100,1)+'%':'—'}</td>
-      <td style="color:var(--muted);font-size:11px;">${p.K0.toLocaleString('es-AR')} / ${p.K2.toLocaleString('es-AR')}</td>
+// ── Render par card ───────────────────────────────────────────────────
+function tipoBadge(tipo){
+  return tipo==='C'
+    ?'<span class="par-tipo-c">CALL</span>'
+    :'<span class="par-tipo-p">PUT</span>';
+}
+function atmLabel(m){
+  return m.isATM?' <span style="background:#f59e0b;color:#000;font-size:9px;padding:1px 4px;border-radius:2px;font-weight:700;">ATM</span>':'';
+}
+function costoCls(costo, min, max){
+  // Color relativo al rango de costos en el universo actual
+  if(costo<0) return 'costo-credito';
+  const pct=(costo-min)/(max-min||1)*100;
+  if(pct<20)  return 'costo-bajo';
+  if(pct<50)  return 'costo-medio';
+  if(pct<80)  return 'costo-normal';
+  return 'costo-alto';
+}
+
+function renderParCard(par, idx, isTop){
+  const {barata,cara,edge}=par;
+  return `<div class="par-card ${isTop?'top':''}">
+    <div class="par-rank">#${idx+1}</div>
+    <div class="par-edge">Edge: +$${fmtN(edge)}</div>
+
+    <div class="par-row">
+      <span class="par-label">▲ COMPRAR (barata)</span>
+      ${tipoBadge(barata.tipo)}
+    </div>
+    <div class="par-row">
+      <span>Centro: <b>${fmtK(barata.K1)}${atmLabel(barata)}</b> · Ancho: +${barata.ancho}</span>
+      <span>Costo: <b class="costo-bajo">$${fmtN(barata.costo)}</b></span>
+    </div>
+    <div class="par-row">
+      <span style="font-size:11px;color:var(--muted);">${fmtK(barata.K0)} / ${fmtK(barata.K1)} / ${fmtK(barata.K2)}</span>
+      <span style="font-size:11px;color:var(--muted);">Prob: ${barata.prob!==null?fmtN(barata.prob*100,1)+'%':'—'}</span>
+    </div>
+
+    <div class="par-row" style="margin-top:6px;">
+      <span class="par-label">▼ VENDER (cara)</span>
+      ${tipoBadge(cara.tipo)}
+    </div>
+    <div class="par-row">
+      <span>Centro: <b>${fmtK(cara.K1)}${atmLabel(cara)}</b> · Ancho: +${cara.ancho}</span>
+      <span>Costo: <b class="costo-alto">$${fmtN(cara.costo)}</b></span>
+    </div>
+    <div class="par-row">
+      <span style="font-size:11px;color:var(--muted);">${fmtK(cara.K0)} / ${fmtK(cara.K1)} / ${fmtK(cara.K2)}</span>
+      <span style="font-size:11px;color:var(--muted);">Prob: ${cara.prob!==null?fmtN(cara.prob*100,1)+'%':'—'}</span>
+    </div>
+
+    <div style="margin-top:8px;padding:6px 8px;background:rgba(34,197,94,0.08);border-radius:4px;font-size:11px;">
+      <span style="color:var(--pos);font-weight:700;">Resultado: cobrar $${fmtN(cara.costo)} · pagar $${fmtN(barata.costo)} · crédito neto $${fmtN(edge)}</span>
+    </div>
+  </div>`;
+}
+
+// ── Render tabla completa ─────────────────────────────────────────────
+function sortBy(col){ if(sortCol===col)sortDir*=-1; else{sortCol=col;sortDir=1;} renderAll(); }
+
+function renderTabla(maris){
+  const sorted=[...maris].sort((a,b)=>{
+    let va,vb;
+    if(sortCol==='tipo')   {va=a.tipo;vb=b.tipo;}
+    else if(sortCol==='k1'){va=a.K1;vb=b.K1;}
+    else if(sortCol==='ancho'){va=a.ancho;vb=b.ancho;}
+    else if(sortCol==='costo'){va=a.costo;vb=b.costo;}
+    else if(sortCol==='maxwin'){va=a.maxWin||0;vb=b.maxWin||0;}
+    else if(sortCol==='maxloss'){va=a.maxLoss||0;vb=b.maxLoss||0;}
+    else if(sortCol==='prob'){va=a.prob||0;vb=b.prob||0;}
+    else if(sortCol==='lleno'){va=a.lleno||999;vb=b.lleno||999;}
+    else if(sortCol==='be_sup'){va=a.beSup||0;vb=b.beSup||0;}
+    else if(sortCol==='be_inf'){va=a.beInf||0;vb=b.beInf||0;}
+    else {va=a.costo;vb=b.costo;}
+    if(typeof va==='string') return va.localeCompare(vb)*sortDir;
+    return (va-vb)*sortDir;
+  });
+
+  const costos=maris.map(m=>m.costo);
+  const minC=Math.min(...costos), maxC=Math.max(...costos);
+
+  document.getElementById('tabla-count').textContent=`${maris.length} mariposas`;
+  document.getElementById('tabla-body').innerHTML=sorted.map(m=>{
+    const cls=costoCls(m.costo,minC,maxC);
+    const tipoBg=m.tipo==='C'?'rgba(34,197,94,0.12)':'rgba(239,68,68,0.12)';
+    const tipoColor=m.tipo==='C'?'var(--pos)':'var(--neg)';
+    const atm=m.isATM?'background:rgba(245,158,11,0.06);':'';
+    const probColor=m.prob===null?'var(--muted)':m.prob>0.55?'var(--pos)':m.prob>0.35?'var(--amber)':'var(--neg)';
+    return `<tr style="${atm}">
+      <td class="left"><span style="background:${tipoBg};color:${tipoColor};padding:1px 6px;border-radius:3px;font-size:11px;font-weight:700;">${m.tipo==='C'?'CALL':'PUT'}</span></td>
+      <td class="left"><b style="color:${m.isATM?'#f59e0b':'#c0c0d0'}">${fmtK(m.K1)}</b>${m.isATM?' <span style="background:#f59e0b;color:#000;font-size:9px;padding:1px 3px;border-radius:2px;">ATM</span>':''}</td>
+      <td style="color:var(--muted);">+${m.ancho}</td>
+      <td class="${cls}" style="font-size:13px;">${fmtN(m.costo)}</td>
+      <td style="color:var(--pos);">${fmtN(m.maxWin)}</td>
+      <td style="color:var(--neg);">${fmtN(m.maxLoss)}</td>
+      <td style="color:var(--pos);font-size:11px;">${fmtN(m.beSup,0)}</td>
+      <td style="color:var(--neg);font-size:11px;">${fmtN(m.beInf,0)}</td>
+      <td style="color:${probColor};">${m.prob!==null?fmtN(m.prob*100,1)+'%':'—'}</td>
+      <td style="color:${m.lleno!==null&&m.lleno<0?'var(--pos)':m.lleno<20?'#a3e635':m.lleno<40?'var(--amber)':'var(--neg)'};">${m.lleno!==null?fmtN(m.lleno,1)+'%':'—'}</td>
+      <td style="color:var(--muted);font-size:11px;">${fmtK(m.K0)} / ${fmtK(m.K2)}</td>
     </tr>`;
   }).join('');
 }
 
-function recalcular(){
-  allPares=calcularPares();
-  renderTablas(allPares);
+// ── Render todo ───────────────────────────────────────────────────────
+function renderAll(){
+  const minEdge=parseFloat(document.getElementById('ctrl-minedge').value)||0;
+
+  // PAR 1: Call vs Put mismo centro y ancho
+  const cpPares=[];
+  const calls=todasMaris.filter(m=>m.tipo==='C');
+  const puts=todasMaris.filter(m=>m.tipo==='P');
+  calls.forEach(c=>{
+    const p=puts.find(p=>p.K1===c.K1&&p.ancho===c.ancho);
+    if(!p) return;
+    const edge=Math.abs(c.costo-p.costo);
+    if(edge<minEdge) return;
+    const barata=c.costo<=p.costo?c:p;
+    const cara=c.costo>p.costo?c:p;
+    cpPares.push({barata,cara,edge});
+  });
+  cpPares.sort((a,b)=>b.edge-a.edge);
+
+  // PAR 2: Call vs Call distinto centro
+  const ccPares=generarPares(calls,minEdge);
+
+  // PAR 3: Put vs Put distinto centro
+  const ppPares=generarPares(puts,minEdge);
+
+  // Resumen
+  document.getElementById('sum-total').textContent=todasMaris.length;
+  document.getElementById('sum-cp').textContent=cpPares.length;
+  document.getElementById('sum-cc').textContent=ccPares.length;
+  document.getElementById('sum-pp').textContent=ppPares.length;
+
+  // Render pares CP
+  document.getElementById('cp-count').textContent=`${cpPares.length} pares`;
+  document.getElementById('pares-cp').innerHTML=cpPares.slice(0,8).map((p,i)=>renderParCard(p,i,i===0)).join('')
+    || '<span style="color:var(--muted);font-size:12px;">Sin pares con edge suficiente.</span>';
+
+  // Render pares CC
+  document.getElementById('cc-count').textContent=`${ccPares.length} pares`;
+  document.getElementById('pares-cc').innerHTML=ccPares.map((p,i)=>renderParCard(p,i,i===0)).join('')
+    || '<span style="color:var(--muted);font-size:12px;">Sin pares con edge suficiente.</span>';
+
+  // Render pares PP
+  document.getElementById('pp-count').textContent=`${ppPares.length} pares`;
+  document.getElementById('pares-pp').innerHTML=ppPares.map((p,i)=>renderParCard(p,i,i===0)).join('')
+    || '<span style="color:var(--muted);font-size:12px;">Sin pares con edge suficiente.</span>';
+
+  // Tabla completa
+  renderTabla(todasMaris);
 }
 
+function recalcular(){
+  todasMaris=calcularTodasMaris();
+  renderAll();
+}
+
+// ── Fetch ─────────────────────────────────────────────────────────────
 async function fetchData(){
   try{
     const ctrl=new AbortController();
     setTimeout(()=>ctrl.abort(),8000);
     const res=await fetch(MONITOR_URL+'?t='+Date.now(),{signal:ctrl.signal});
     const json=await res.json();
-    const ggal=json[1];
-    if(ggal){
-      const last=parseFloat(ggal[3]);
+    const g=json[1];
+    if(g){
+      const last=parseFloat(g[3]);
       if(!isNaN(last)&&last>0){spotGGAL=last;document.getElementById('spot-val').textContent=last.toLocaleString('es-AR',{minimumFractionDigits:2,maximumFractionDigits:2});}
-      const d=parseInt(ggal[12]);
+      const d=parseInt(g[12]);
       if(!isNaN(d)&&d>0){diasVto=d;document.getElementById('dias-val').textContent=d;}
       for(let fi=1;fi<=7;fi++){const fr=json[fi];if(!fr)continue;const v=parseFloat((fr[14]||'').toString().replace(',','.').replace('%','').trim());if(!isNaN(v)&&v>0){tasaLibreRiesgo=v;document.getElementById('tlr-val').textContent=v.toFixed(1)+'%';break;}}
     }
