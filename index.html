@@ -205,7 +205,8 @@
     <div class="ctrl-group">
       <span class="ctrl-lbl">Ordenar por</span>
       <select id="ctrl-orden">
-        <option value="edge" selected>Edge teórico</option>
+        <option value="strike" selected>Strike central</option>
+        <option value="edge">Edge teórico</option>
         <option value="costo">Costo (crédito primero)</option>
         <option value="lleno">% Lleno</option>
         <option value="rr">RR</option>
@@ -214,6 +215,10 @@
     <div class="ctrl-group">
       <span class="ctrl-lbl">Min edge %</span>
       <input type="number" id="ctrl-minedge" value="5" min="0" max="100" step="1" style="width:60px;">
+    </div>
+    <div class="ctrl-group">
+      <span class="ctrl-lbl">Moneyness ±%</span>
+      <input type="number" id="ctrl-moneyness" value="20" min="5" max="100" step="5" style="width:60px;" title="Solo mostrar mariposas cuyo strike central esté dentro de este % del spot">
     </div>
     <div class="ctrl-group">
       <span class="ctrl-lbl">TLR %</span>
@@ -455,9 +460,17 @@ function fmtN(n,d=2) {
 function renderTabla(maris) {
   const orden = document.getElementById('ctrl-orden').value;
   const minEdge = parseFloat(document.getElementById('ctrl-minedge').value)||0;
+  const moneynessPct = parseFloat(document.getElementById('ctrl-moneyness')?.value)||100;
 
-  let sorted = [...maris];
-  if(orden==='costo')  sorted.sort((a,b)=>a.costoMkt-b.costoMkt);
+  // Filtrar por moneyness: solo strikes centrales dentro de ±% del spot
+  let filtered = maris;
+  if(spotGGAL && moneynessPct < 100) {
+    filtered = maris.filter(m => Math.abs((m.K1 - spotGGAL) / spotGGAL * 100) <= moneynessPct);
+  }
+
+  let sorted = [...filtered];
+  if(orden==='strike') sorted.sort((a,b)=>a.K1-b.K1);
+  else if(orden==='costo')  sorted.sort((a,b)=>a.costoMkt-b.costoMkt);
   else if(orden==='lleno') sorted.sort((a,b)=>(a.lleno||999)-(b.lleno||999));
   else if(orden==='rr') sorted.sort((a,b)=>(b.rr||0)-(a.rr||0));
   else sorted.sort((a,b)=>Math.abs(b.edgePct)-Math.abs(a.edgePct)); // edge desc
@@ -478,8 +491,11 @@ function renderTabla(maris) {
     const llenoCls = m.lleno===null?'':m.lleno<0?'color:#22c55e':m.lleno<15?'color:#22c55e':m.lleno<30?'color:#a3e635':m.lleno<50?'color:#f59e0b':'color:#ef4444';
     const probStr  = m.prob!==null?`<span style="color:${m.prob>0.6?'#22c55e':m.prob>0.4?'#f59e0b':'#ef4444'}">${fmtN(m.prob*100,1)}%</span>`:'—';
 
-    return `<tr onclick="marClick(${m.K0},${m.K1},${m.K2},'${m.tipo}')">
-      <td style="text-align:left;color:#c0c0d0;">${m.K0.toLocaleString('es-AR')} / ${m.K1.toLocaleString('es-AR')} / ${m.K2.toLocaleString('es-AR')}</td>
+    const isATM = spotGGAL && Math.abs((m.K1 - spotGGAL) / spotGGAL * 100) < 3;
+    const isNearATM = spotGGAL && Math.abs((m.K1 - spotGGAL) / spotGGAL * 100) < 8;
+    const rowBg = isATM ? 'background:rgba(212,88,26,0.12);' : isNearATM ? 'background:rgba(160,196,255,0.05);' : '';
+    return `<tr onclick="marClick(${m.K0},${m.K1},${m.K2},'${m.tipo}')" style="${rowBg}">
+      <td style="text-align:left;color:#c0c0d0;">${m.K0.toLocaleString('es-AR')} / <b style="color:${isATM?'#f59e0b':isNearATM?'#a0c4ff':'#c0c0d0'}">${m.K1.toLocaleString('es-AR')}</b>${isATM?' <span style="background:#f59e0b;color:#000;font-size:9px;padding:1px 4px;border-radius:2px;font-weight:700;">ATM</span>':''} / ${m.K2.toLocaleString('es-AR')}</td>
       <td>${tipoBadge}</td>
       <td style="color:var(--muted);">+${m.ancho}</td>
       <td>${costoStr}</td>
@@ -562,8 +578,10 @@ function renderPares(maris) {
 function renderRolleo(maris) {
   // Candidatas: edge absoluto > minEdge, ordenadas por edge
   const minEdge = parseFloat(document.getElementById('ctrl-minedge').value)||0;
+  const moneynessPctR = parseFloat(document.getElementById('ctrl-moneyness')?.value)||100;
   const cands = maris
     .filter(m=>Math.abs(m.edgePct)>=minEdge)
+    .filter(m=>!spotGGAL||moneynessPctR>=100||Math.abs((m.K1-spotGGAL)/spotGGAL*100)<=moneynessPctR)
     .sort((a,b)=>Math.abs(b.edgePct)-Math.abs(a.edgePct))
     .slice(0,30);
 
